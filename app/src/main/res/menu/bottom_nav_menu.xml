@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_newdream"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="@string/title_newdream" />
+
+    <item
+        android:id="@+id/navigation_journal"
+        android:icon="@drawable/ic_library_books_black_24dp"
+        android:title="@string/title_journal" />
+
+    <item
+        android:id="@+id/navigation_statistics"
+        android:icon="@drawable/ic_pie_chart_black_24dp"
+        android:title="@string/title_statistics" />
+
+</menu>

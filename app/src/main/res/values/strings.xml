@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">VisionLog</string>
+    <string name="title_newdream">New Dream</string>
+    <string name="title_journal">Journal</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="dreamHintET">Tap here to write dream...</string>
+
+    <string-array name="dream_type_array">
+        <item>Regular</item>
+        <item>Lucid</item>
+        <item>Euphoric</item>
+        <item>Thriller</item>
+        <item>Nightmare</item>
+        <item>Lucid Nightmare</item>
+    </string-array>
+</resources>

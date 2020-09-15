@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#673AB7</color>
+    <color name="background">#15141a</color>
+    <color name="navigationbackground">#0B0A0D</color>
+
+    <color name="colorRegularDream">#673AB7</color>
+    <color name="colorLucidDream">#2196F3</color>
+    <color name="colorEuphoricDream">#8BC34A</color>
+    <color name="colorThrillerDream">#FFEB3B</color>
+    <color name="colorNightmareDream">#FF9800</color>
+    <color name="colorLucidNightmareDream">#F44336</color>
+</resources>
