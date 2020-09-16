@@ -71,10 +71,8 @@ public class NewDreamFragment extends Fragment {
                     dreamtypeview.setBackgroundColor(getResources().getColor(R.color.colorLucidNightmareDream));
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 

@@ -10,7 +10,7 @@ public class JournalViewModel extends ViewModel {
 
     public JournalViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is the journal fragment");
     }
 
     public LiveData<String> getText() {
