@@ -24,7 +24,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import seth.cohen.visionlog.MainActivity;
 import seth.cohen.visionlog.R;
 
 public class NewDreamFragment extends Fragment {
@@ -36,7 +38,7 @@ public class NewDreamFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         newDreamViewModel =
                 ViewModelProviders.of(this).get(NewDreamViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_newdream, container, false);
+        final View root = inflater.inflate(R.layout.fragment_newdream, container, false);
         final TextView spinnertv = root.findViewById(R.id.text_spinner);
 
         Spinner spinner = root.findViewById(R.id.dreamTypeSpinner);
@@ -76,8 +78,18 @@ public class NewDreamFragment extends Fragment {
             }
         });
 
-        EditText userInput = (EditText) root.findViewById(R.id.dreamEditText);
-        String sUserInput = userInput.getText().toString();
+        final EditText input = root.findViewById(R.id.dreamEditText);
+        FloatingActionButton fab = root.findViewById(R.id.saveFAB);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String strInput = input.getText().toString();
+                if (!strInput.matches("")){
+                    Toast.makeText(getContext(),"Edit Text Is Not Empty",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
         newDreamViewModel.getSpinnerText().observe(getViewLifecycleOwner(), new Observer<String>() {

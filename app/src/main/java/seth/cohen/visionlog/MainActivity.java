@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,24 +60,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
 
-        switch (item.getItemId()) {
-            case R.id.navigation_newdream:
-                Log.d("test", "newdream");
-                selectedFragment = new NewDreamFragment();
-                break;
-            case R.id.navigation_journal:
-                Log.d("test", "journal");
-                selectedFragment = new JournalFragment();
-                break;
-            case R.id.navigation_statistics:
-                Log.d("test", "statistics");
-                selectedFragment = new StatisticsFragment();
-                break;
-            default:
-                return false;
-        }
+        EditText input = findViewById(R.id.dreamEditText);
+        String strInput = input.getText().toString();
+        if (strInput.matches("")){
+            switch (item.getItemId()) {
+                case R.id.navigation_newdream:
+                    Log.d("test", "newdream");
+                    selectedFragment = new NewDreamFragment();
+                    break;
+                case R.id.navigation_journal:
+                    Log.d("test", "journal");
+                    selectedFragment = new JournalFragment();
+                    break;
+                case R.id.navigation_statistics:
+                    Log.d("test", "statistics");
+                    selectedFragment = new StatisticsFragment();
+                    break;
+                default:
+                    return false;
+            }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
+        }
+        else {
+            navView.getMenu().getItem(0).setChecked(true);
+            Toast.makeText(getBaseContext(), "Unsaved Input Detected", Toast.LENGTH_SHORT).show();
+        }
 
         return true;
     }
