@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#673AB7</color>
     <color name="background">#15141a</color>
+    <color name="tvbackground">#2C2B30</color>
     <color name="navigationbackground">#0B0A0D</color>
 
     <color name="colorRegularDream">#673AB7</color>

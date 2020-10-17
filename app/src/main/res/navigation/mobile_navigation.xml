@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_newdream">
+    app:startDestination="@+id/navigation_dreams">
 
     <fragment
-        android:id="@+id/navigation_newdream"
-        android:name="seth.cohen.visionlog.ui.newdream.NewDreamFragment"
-        android:label="@string/title_newdream"
-        tools:layout="@layout/fragment_newdream" />
+        android:id="@+id/navigation_settings"
+        android:name="seth.cohen.visionlog.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/navigation_journal"
-        android:name="seth.cohen.visionlog.ui.journal.JournalFragment"
-        android:label="@string/title_journal"
-        tools:layout="@layout/fragment_journal" />
+        android:id="@+id/navigation_dreams"
+        android:name="seth.cohen.visionlog.ui.dreams.DreamsFragment"
+        android:label="@string/title_dreams"
+        tools:layout="@layout/fragment_dreams" />
 
     <fragment
         android:id="@+id/navigation_statistics"

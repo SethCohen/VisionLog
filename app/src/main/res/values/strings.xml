@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">VisionLog</string>
-    <string name="title_newdream">New Dream</string>
-    <string name="title_journal">Journal</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_dreams">Dreams</string>
     <string name="title_statistics">Statistics</string>
-    <string name="dreamHintET">Tap here to write dream...</string>
+    <string name="dreamHintET">Tap here to write dream&#8230;</string>
+    <string name="dreamtypeLucid">Lucid</string>
+    <string name="dreamtypeNightmare">Nightmare</string>
+    <string name="dreamtypeRecurring">Recurring</string>
+    <string name="dreamtypeContinuing">Continuing</string>
+    <string name="titleHintET">Title&#8230;</string>
+    <string name="feelTV">Feel:</string>
 
     <string-array name="dream_type_array">
         <item>Regular</item>
