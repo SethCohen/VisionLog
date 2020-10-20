@@ -41,6 +41,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import seth.cohen.visionlog.db.Dream;
+import seth.cohen.visionlog.db.DreamDatabase;
+import seth.cohen.visionlog.db.DreamRepository;
+
 import static android.app.Activity.*;
 
 public class NewDreamActivity extends AppCompatActivity {
@@ -51,12 +55,16 @@ public class NewDreamActivity extends AppCompatActivity {
 
     public int year, month, day, hour, minute;
     public String moodType = "average";
-    public String title, dream, dreamType = "";
+    public String title, message, dreamType = "";
+
+    private static DreamRepository dreamRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_dream);
+
+        dreamRepository = new DreamRepository(this);
 
         tvDate = findViewById(R.id.dateTV);
         tvTime = findViewById(R.id.timeTV);
@@ -125,6 +133,8 @@ public class NewDreamActivity extends AppCompatActivity {
             }
         };
 
+        final View topbarview = findViewById(R.id.topbar);
+
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -133,19 +143,24 @@ public class NewDreamActivity extends AppCompatActivity {
                 RadioButton checkedRadioButton = (RadioButton) group.findViewById(checkedId);
                 switch(checkedId){
                     case R.id.frownBtn:
+                        topbarview.setBackgroundColor(getResources().getColor(R.color.terrible));
                         moodType = "terrible";
                         break;
                     case R.id.slfrownBtn:
+                        topbarview.setBackgroundColor(getResources().getColor(R.color.bad));
                         moodType = "bad";
                         break;
                     case R.id.neutralBtn:
+                        topbarview.setBackgroundColor(getResources().getColor(R.color.neutral));
                         moodType = "average";
                         break;
                     case R.id.slsmileBtn:
+                        topbarview.setBackgroundColor(getResources().getColor(R.color.good));
                         moodType = "good";
                         break;
                     case R.id.smileBtn:
-                        moodType = "great";
+                        topbarview.setBackgroundColor(getResources().getColor(R.color.amazing));
+                        moodType = "amazing";
                         break;
                 }
             }
@@ -160,7 +175,10 @@ public class NewDreamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (lucidSwitch.isChecked()){
-                    dreamType = "lucid";
+                    dreamType += "lucid ";
+                }
+                else {
+                    dreamType = dreamType.replace("lucid", "");
                 }
             }
         });
@@ -170,7 +188,10 @@ public class NewDreamActivity extends AppCompatActivity {
                 if (nightmareSwitch.isChecked()){
                     RadioButton frownRadioBtn = (RadioButton) findViewById(R.id.frownBtn);
                     frownRadioBtn.setChecked(true);
-                    dreamType = "nightmare";
+                    dreamType += "nightmare ";
+                }
+                else {
+                    dreamType = dreamType.replace("nightmare", "");
                 }
             }
         });
@@ -178,7 +199,10 @@ public class NewDreamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (recurringSwitch.isChecked()){
-                    dreamType = "recurring";
+                    dreamType += "recurring ";
+                }
+                else {
+                    dreamType = dreamType.replace("recurring", "");
                 }
             }
         });
@@ -186,7 +210,10 @@ public class NewDreamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (continuingSwitch.isChecked()){
-                    dreamType = "continuing";
+                    dreamType += "continuing ";
+                }
+                else {
+                    dreamType = dreamType.replace("continuing", "");
                 }
             }
         });
@@ -201,14 +228,16 @@ public class NewDreamActivity extends AppCompatActivity {
                 EditText dreamET = (EditText) findViewById(R.id.dreamEditText);
                 String strFileName = "";
 
-                Calendar calendar = Calendar.getInstance();
+                final Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day, hour, minute);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-d-HH:mm");
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-d-HH:mm");
+                final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-d");
+                final SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
                 title = titleET.getText().toString();
-                dream = dreamET.getText().toString();
+                message = dreamET.getText().toString();
 
-                if (!title.equals("") && !dreamType.equals("")){ //title, dreamtype
+                /*if (!title.equals("") && !dreamType.equals("")){ //title, dreamtype
                     strFileName = sdf.format(calendar.getTime()) + "-" + moodType + "-" + dreamType + "-" + title + ".txt";
                 }
                 if (title.equals("") && !dreamType.equals("")) { //no title, dreamtype
@@ -219,7 +248,7 @@ public class NewDreamActivity extends AppCompatActivity {
                 }
                 else if (title.equals("") && dreamType.equals("")){ //no title, no dreamtype
                     strFileName = sdf.format(calendar.getTime()) + "-" + moodType + ".txt";
-                }
+                }*/
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(NewDreamActivity.this);
                 builder.setTitle("Are you sure?");
@@ -228,7 +257,11 @@ public class NewDreamActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
 
-                        FileOutputStream fos = null;
+                        Dream dream = new Dream(sdf1.format(calendar.getTime()), sdf2.format(calendar.getTime()), moodType, dreamType, title, message);
+
+                        dreamRepository.insert(dream);
+
+                        /*FileOutputStream fos = null;
                         try {
                             fos = openFileOutput(finalStrFileName, MODE_PRIVATE);
                             fos.write(dream.getBytes());
@@ -245,7 +278,8 @@ public class NewDreamActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                        }
+                        }*/
+
 
                         finish();
                     }

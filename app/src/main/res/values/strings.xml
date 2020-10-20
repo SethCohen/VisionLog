@@ -10,13 +10,9 @@
     <string name="dreamtypeContinuing">Continuing</string>
     <string name="titleHintET">Title&#8230;</string>
     <string name="feelTV">Feel:</string>
-
-    <string-array name="dream_type_array">
-        <item>Regular</item>
-        <item>Lucid</item>
-        <item>Euphoric</item>
-        <item>Thriller</item>
-        <item>Nightmare</item>
-        <item>Lucid Nightmare</item>
-    </string-array>
+    <string name="types">Types</string>
+    <string name="feel">Feel</string>
+    <string name="date">yyyy-MM-dd HH:mm aa</string>
+    <string name="message">Message</string>
+    <string name="title">Title</string>
 </resources>

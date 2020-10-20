@@ -22,11 +22,17 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
+            <View
+                android:id="@+id/topbar"
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/neutral" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="end" >
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/dateTV"
@@ -34,15 +40,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:background="@drawable/tv_styler"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/edittext_styler"
                     android:clickable="true"
                     android:focusable="true"
                     android:paddingLeft="8dp"
                     android:paddingTop="4dp"
                     android:paddingRight="8dp"
                     android:paddingBottom="4dp"
-                    android:textSize="18sp"
-                    android:layout_marginRight="8dp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/timeTV"
@@ -51,7 +57,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:background="@drawable/tv_styler"
+                    android:background="@drawable/edittext_styler"
                     android:paddingLeft="8dp"
                     android:paddingTop="4dp"
                     android:paddingRight="8dp"
@@ -90,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:button="@drawable/frown_radio_selector" />
+                        android:button="@drawable/radio_selector_5_terrible" />
 
                     <RadioButton
                         android:id="@+id/slfrownBtn"
@@ -98,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:button="@drawable/slightfrown_radio_selector" />
+                        android:button="@drawable/radio_selector_4_bad" />
 
                     <RadioButton
                         android:id="@+id/neutralBtn"
@@ -106,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:button="@drawable/neutral_radio_selector" />
+                        android:button="@drawable/radio_selector_3_average" />
 
                     <RadioButton
                         android:id="@+id/slsmileBtn"
@@ -114,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:button="@drawable/slightsmile_radio_selector" />
+                        android:button="@drawable/radio_selector_2_good" />
 
                     <RadioButton
                         android:id="@+id/smileBtn"
@@ -122,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:button="@drawable/smile_radio_selector" />
+                        android:button="@drawable/radio_selector_1_amazing" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -188,7 +194,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/tv_styler"
+                android:background="@drawable/edittext_styler"
                 android:ems="10"
                 android:gravity="top"
                 android:hint="@string/titleHintET"
@@ -208,7 +214,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/tv_styler"
+                android:background="@drawable/edittext_styler"
                 android:ems="10"
                 android:gravity="top"
                 android:hint="@string/dreamHintET"
@@ -231,7 +237,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_save_black_24dp"
+        app:srcCompat="@drawable/save_dream"
         android:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
