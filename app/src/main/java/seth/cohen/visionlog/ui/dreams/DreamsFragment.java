@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import seth.cohen.visionlog.NewDreamActivity;
@@ -30,7 +32,7 @@ public class DreamsFragment extends Fragment {
     private static DreamRepository dreamRepository;
 
     RecyclerView mRecyclerView;
-    Adapter adapter;
+    //Adapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,8 +67,8 @@ public class DreamsFragment extends Fragment {
         mRecyclerView = root.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
 
-        adapter = new Adapter(getActivity(), getMyList());
-        mRecyclerView.setAdapter(adapter);
+        //adapter = new Adapter(getActivity(), getMyList());
+        //mRecyclerView.setAdapter(adapter);
 
         return root;
     }
@@ -78,8 +80,12 @@ public class DreamsFragment extends Fragment {
         for(Dream dream : dreamList){
             System.out.println(dream);
 
+            final Calendar calendar = Calendar.getInstance();
+            calendar.set(dream.getYear(), dream.getMonth(), dream.getDay(), dream.getHour(), dream.getMinute());
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy\th:mm aa");
+
             Model m = new Model();
-            m.setDate(dream.getDate() + " " + dream.getTime());
+            m.setDate(sdf.format(calendar.getTime()));
             m.setTitle(dream.getTitle());
             m.setMessage(dream.getMessage());
             m.setTypes(dream.getType());

@@ -228,11 +228,11 @@ public class NewDreamActivity extends AppCompatActivity {
                 EditText dreamET = (EditText) findViewById(R.id.dreamEditText);
                 String strFileName = "";
 
-                final Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, day, hour, minute);
+                //final Calendar calendar = Calendar.getInstance();
+                //calendar.set(year, month, day, hour, minute);
                 //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-d-HH:mm");
-                final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-d");
-                final SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+                //final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-d");
+                //final SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
                 title = titleET.getText().toString();
                 message = dreamET.getText().toString();
@@ -257,7 +257,7 @@ public class NewDreamActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
 
-                        Dream dream = new Dream(sdf1.format(calendar.getTime()), sdf2.format(calendar.getTime()), moodType, dreamType, title, message);
+                        Dream dream = new Dream(year, month, day, hour, minute, moodType, dreamType, title, message);
 
                         dreamRepository.insert(dream);
 
