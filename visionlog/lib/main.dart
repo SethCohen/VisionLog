@@ -39,11 +39,12 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PageNavigation(),
+      initialRoute: '/mainPage',
       routes: <String, WidgetBuilder>{
         '/addDream': (BuildContext context) => AddDream(),
         '/dreamsPage': (BuildContext context) => DreamsPage(),
         '/dreamEntree': (BuildContext context) => DreamEntree(),
+        '/mainPage': (BuildContext context) => PageNavigation(),
       },
     );
   }

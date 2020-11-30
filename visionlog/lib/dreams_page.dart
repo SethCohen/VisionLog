@@ -37,12 +37,9 @@ class _DreamsPageState extends State<DreamsPage> {
                 padding: const EdgeInsets.all(8),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
+                  return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        Navigator.pushNamed(context, '/dreamEntree',
-                            arguments: (snapshot.data[index]));
-                      });
+                      _showDreamEntreeWidget(snapshot.data[index]);
                     },
                     child: Container(
                         decoration: BoxDecoration(
@@ -86,9 +83,8 @@ class _DreamsPageState extends State<DreamsPage> {
             } else if (snapshot.hasData == false) {
               print('No data');
               return Center(
-                  child: Text(
-                'No data detected.',
-              ));
+                child: CircularProgressIndicator(),
+              );
             }
             return Center(child: new CircularProgressIndicator());
           }),
@@ -110,12 +106,12 @@ class _DreamsPageState extends State<DreamsPage> {
     });
   }
 
-  void _deleteDreams() async {
-    _model.deleteAllDreams();
-    print("All dreams deleted.");
+  Future<void> _showDreamEntreeWidget(argument) async {
+    await Navigator.pushNamed(context, '/dreamEntree',
+        arguments: (argument));
 
     setState(() {
-      //  Refreshes future
+      myFuture = _getDreams(); // Refreshes future
     });
   }
 
