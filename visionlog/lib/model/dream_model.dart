@@ -17,7 +17,7 @@ class DreamModel {
   Future<void> updateDream(Dream dream) async {
     final db = await DBUtils.init();
     await db.update(
-      'grade_items',
+      'dream_items',
       dream.toMap(),
       where: 'id = ?',
       whereArgs: [dream.id],

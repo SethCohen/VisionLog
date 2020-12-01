@@ -33,13 +33,68 @@ class _AddDreamState extends State<AddDream> {
   bool isRecurringSwitched = false;
   bool isContinuousSwitched = false;
 
-
   final _model = DreamModel();
+  Dream _dream;
   var _lastInsertedId = 0;
 
   //  Initializes which ToggleButton is selected in beginning
   List<bool> isSelected = [false, false, true, false, false];
 
+  TextEditingController _titleTextEditingController = TextEditingController();
+  TextEditingController _messageTextEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        _dream = ModalRoute.of(context).settings.arguments;
+        print(_dream);
+        if (_dream != null) {
+          print(_dream);
+          List<String> _datetime = (_dream.datetime).split(" ");
+          _date = _datetime[0];
+          _time = _datetime[1] + " " + _datetime[2];
+          _moodFeel = _dream.moodFeel;
+          _lucid = _dream.lucid;
+          _nightmare = _dream.nightmare;
+          _recurring = _dream.recurring;
+          _continuous = _dream.continuous;
+          _title = _dream.title;
+          _message = _dream.message;
+
+          if (_lucid == 'true') {
+            isLucidSwitched = true;
+            print("lucid is true");
+          }
+          if (_nightmare == 'true') {
+            isNightmareSwitched = true;
+            print("nightmare is true");
+          }
+          if (_recurring == 'true') isRecurringSwitched = true;
+          if (_continuous == 'true') isContinuousSwitched = true;
+
+          if (_moodFeel == 'terrible')
+            isSelected = [true, false, false, false, false];
+          if (_moodFeel == 'bad')
+            isSelected = [false, true, false, false, false];
+          if (_moodFeel == 'average')
+            isSelected = [false, false, true, false, false];
+          if (_moodFeel == 'okay')
+            isSelected = [false, false, false, true, false];
+          if (_moodFeel == 'fantastic')
+            isSelected = [false, false, false, false, true];
+
+          _titleTextEditingController.text = _title;
+          _messageTextEditingController.text = _message;
+        } else {
+          _time = selectedTime.format(context);
+          _date = formatter.format(selectedDate);
+        }
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,31 +118,29 @@ class _AddDreamState extends State<AddDream> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     OutlineButton(
-                      borderSide: BorderSide(
-                        color: const Color(0xff2C2B30)
-                      ),
+                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
                       visualDensity: VisualDensity.compact,
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(4.0)),
                       onPressed: () => _selectDate(context),
                       textColor: Colors.white60,
                       child: Text(
-                        _date = formatter.format(selectedDate),
+                        _date,
                         textScaleFactor: 1.25,
                       ),
                     ),
-                    Divider(indent: 8.0,),
+                    Divider(
+                      indent: 8.0,
+                    ),
                     OutlineButton(
-                      borderSide: BorderSide(
-                          color: const Color(0xff2C2B30)
-                      ),
+                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
                       visualDensity: VisualDensity.compact,
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(4.0)),
                       onPressed: () => _selectTime(context),
                       textColor: Colors.white60,
                       child: Text(
-                        _time = selectedTime.format(context),
+                        _time,
                         textScaleFactor: 1.25,
                       ),
                     ),
@@ -107,7 +160,9 @@ class _AddDreamState extends State<AddDream> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Divider(indent: 8.0,),
+                    Divider(
+                      indent: 8.0,
+                    ),
                     ToggleButtons(
                       children: <Widget>[
                         Icon(Icons.sentiment_very_dissatisfied, size: 36.0),
@@ -180,7 +235,10 @@ class _AddDreamState extends State<AddDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Lucid', textScaleFactor: 1.25,),
+                      Text(
+                        'Lucid',
+                        textScaleFactor: 1.25,
+                      ),
                       Switch(
                         value: isLucidSwitched,
                         onChanged: (value) {
@@ -204,7 +262,10 @@ class _AddDreamState extends State<AddDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Nightmare', textScaleFactor: 1.25,),
+                      Text(
+                        'Nightmare',
+                        textScaleFactor: 1.25,
+                      ),
                       Switch(
                         value: isNightmareSwitched,
                         onChanged: (value) {
@@ -235,7 +296,10 @@ class _AddDreamState extends State<AddDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Recurring', textScaleFactor: 1.25,),
+                      Text(
+                        'Recurring',
+                        textScaleFactor: 1.25,
+                      ),
                       Switch(
                         value: isRecurringSwitched,
                         onChanged: (value) {
@@ -259,7 +323,10 @@ class _AddDreamState extends State<AddDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Continuous', textScaleFactor: 1.25,),
+                      Text(
+                        'Continuous',
+                        textScaleFactor: 1.25,
+                      ),
                       Switch(
                         value: isContinuousSwitched,
                         onChanged: (value) {
@@ -287,7 +354,7 @@ class _AddDreamState extends State<AddDream> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: TextField(
-
+                  controller: _titleTextEditingController,
                   onChanged: (text) {
                     _title = text;
                   },
@@ -308,8 +375,10 @@ class _AddDreamState extends State<AddDream> {
               ),
               // Message
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                 child: TextField(
+                  controller: _messageTextEditingController,
                   onChanged: (text) {
                     _message = text;
                   },
@@ -335,18 +404,7 @@ class _AddDreamState extends State<AddDream> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Dream newDream = Dream(
-              datetime: _date + ' ' + _time,
-              title: _title,
-              message: _message,
-              moodFeel: _moodFeel,
-              lucid: _lucid,
-              nightmare: _nightmare,
-              recurring: _recurring,
-              continuous: _continuous,
-            );
-            _addDream(newDream);
-            Navigator.of(context).pop(newDream);
+            _showAlertDialog(context);
           },
           tooltip: 'Save',
           child: Icon(Icons.save),
@@ -366,6 +424,7 @@ class _AddDreamState extends State<AddDream> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        _date = formatter.format(selectedDate);
       });
   }
 
@@ -377,10 +436,82 @@ class _AddDreamState extends State<AddDream> {
     if (picked != null && picked != selectedTime)
       setState(() {
         selectedTime = picked;
-      });}
+        _time = selectedTime.format(context);
+      });
+  }
 
   Future<void> _addDream(Dream dream) async {
     _lastInsertedId = await _model.insertDream(dream);
     print('Dream inserted: $_lastInsertedId');
+  }
+
+  Future<void> _updateDream(Dream dream) async {
+    if (_dream.id != null) {
+      await _model.updateDream(dream);
+      print("Updated Dream at ID: " + _dream.id.toString());
+    }
+  }
+
+  _showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget confirmButton = FlatButton(
+      child: Text("Confirm"),
+      onPressed: () {
+        Dream newDream = Dream(
+          datetime: _date + ' ' + _time,
+          title: _title,
+          message: _message,
+          moodFeel: _moodFeel,
+          lucid: _lucid,
+          nightmare: _nightmare,
+          recurring: _recurring,
+          continuous: _continuous,
+        );
+
+        if (_dream != null) {
+          newDream.id = _dream.id;
+          print("updating...");
+          print(newDream);
+          _updateDream(newDream);
+
+          int count = 0;
+          Navigator.popUntil(context, (route) {
+            return count++ == 4;
+          });
+        }
+        else {
+          _addDream(newDream);
+          Navigator.of(context).pop(newDream);
+          Navigator.of(context).pop(newDream);
+        }
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: const Color(0xFF121219),
+      title: Text(
+        'Are you sure you want to save?',
+        style: TextStyle(color: Colors.white70),
+      ),
+      actions: [
+        cancelButton,
+        confirmButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

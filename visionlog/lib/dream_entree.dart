@@ -104,7 +104,8 @@ class _DreamEntreeState extends State<DreamEntree> {
           });
         }
         else {
-          _text = "Are you sure you would like to edit this dream?";
+          Navigator.pushNamed(context, '/addDream',
+              arguments: (_dream));
         }
       },
     );

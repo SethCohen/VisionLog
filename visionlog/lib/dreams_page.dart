@@ -13,8 +13,6 @@ class DreamsPage extends StatefulWidget {
 
 class _DreamsPageState extends State<DreamsPage> {
   final _model = DreamModel();
-  var _selectedIndex;
-  var _maxLines = 1;
 
   //Initializes State future exactly once
   Future myFuture;
