@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
               TextButton(
                   onPressed: _launchReportIssueGithubURL,
                   child: Text(
-                    'Report an issue with Github',
+                    'Report an issue via Github',
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
               TextButton(
                   onPressed: _launchReportIssueGmailURL,
                   child: Text(
-                    'Report an issue with Gmail',
+                    'Report an issue via Gmail',
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
@@ -146,7 +146,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   _launchReportIssueGmailURL() async {
-    const url = 'mailto:sethcohen.dev@gmail.com?subject=VisionLog Issue';
+    const url = 'mailto:sethcohen.dev@gmail.com?subject=VisionLog Issue&body=Please answer each field as best as possible, blank answers are fine though. Thank you.\n______________\n\nPhone Model: \n\nPhone OS Version: \n\nDescription of issue: \n\nThe last thing you were doing before the issue happened: \n';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
