@@ -26,6 +26,9 @@ class _DreamsPageState extends State<DreamsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Dreams'),
+      ),
       body: FutureBuilder(
           future: myFuture,
           builder: (context, AsyncSnapshot snapshot) {
