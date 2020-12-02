@@ -16,29 +16,30 @@ class _SettingsPageState extends State<SettingsPage> {
         title: Text('Settings'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // TODO finish export database
-              // TODO finish export old dreams
-              // TODO finish buy a coffee
-              // TODO add redirect to my website
               TextButton(
-                  onPressed: _launchGithubURL,
+                  onPressed: _launchGithubURL, // TODO finish export database
                   child: Text(
                     'Export database',
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
-              Divider(
-                color: Colors.white70,
-              ),
               TextButton(
-                  onPressed: _launchGithubURL,
+                  onPressed: _launchGithubURL, // TODO finish export old dreams
                   child: Text(
                     'Export old dreams',
+                    textScaleFactor: 1.25,
+                    style: TextStyle(color: Colors.white70),
+                  )),
+
+              TextButton(
+                  onPressed: null, // TODO import
+                  child: Text(
+                    'Import',
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
@@ -52,33 +53,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
-              Divider(
-                color: Colors.white70,
-              ),
               TextButton(
                   onPressed: _launchReportIssueGmailURL,
                   child: Text(
                     'Report an issue via Gmail',
-                    textScaleFactor: 1.25,
-                    style: TextStyle(color: Colors.white70),
-                  )),
-              Divider(
-                color: Colors.white70,
-              ),
-              TextButton(
-                  onPressed: _launchSupportURL,
-                  child: Text(
-                    'Buy me a coffee',
-                    textScaleFactor: 1.25,
-                    style: TextStyle(color: Colors.white70),
-                  )),
-              Divider(
-                color: Colors.white70,
-              ),
-              TextButton(
-                  onPressed: _launchReviewURL,
-                  child: Text(
-                    'Rate this app',
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
@@ -92,13 +70,48 @@ class _SettingsPageState extends State<SettingsPage> {
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
-              Divider(
-                color: Colors.white70,
-              ),
+              TextButton(
+                  onPressed: _launchReviewURL,
+                  child: Text(
+                    'Rate This App',
+                    textScaleFactor: 1.25,
+                    style: TextStyle(color: Colors.white70),
+                  )),
               TextButton(
                   onPressed: _launchPrivacyPolicyURL,
                   child: Text(
                     'Privacy Policy',
+                    textScaleFactor: 1.25,
+                    style: TextStyle(color: Colors.white70),
+                  )),
+              TextButton(
+                  onPressed: null, // TODO changelog
+                  child: Text(
+                    'Changelog',
+                    textScaleFactor: 1.25,
+                    style: TextStyle(color: Colors.white70),
+                  )),
+              TextButton(
+                  onPressed: null, // TODO roadmap
+                  child: Text(
+                    'Roadmap',
+                    textScaleFactor: 1.25,
+                    style: TextStyle(color: Colors.white70),
+                  )),
+              Divider(
+                color: Colors.white70,
+              ),
+              TextButton(
+                  onPressed: _launchPersonalSiteURL,
+                  child: Text(
+                    'My Website',
+                    textScaleFactor: 1.25,
+                    style: TextStyle(color: Colors.white70),
+                  )),
+              TextButton(
+                  onPressed: _launchSupportURL, // TODO finish buy a coffee
+                  child: Text(
+                    'Buy Me a Coffee',
                     textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
@@ -107,6 +120,16 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ),
     );
+  }
+
+
+  _launchPersonalSiteURL() async {
+    const url = 'https://sethdev.ca/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   _launchGithubURL() async {

@@ -14,7 +14,7 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-  String dropdownValue = 'All';
+  String dropdownValue = 'All-time';
   final _model = DreamModel();
 
   Future myMoodFuture;
@@ -49,7 +49,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                     dropdownValue = newValue;
                   });
                 },
-                items: <String>['All', 'Yearly', 'Monthly', 'Weekly']
+                items: <String>['All-time', 'Yearly', 'Monthly', 'Weekly']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
