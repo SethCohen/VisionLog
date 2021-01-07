@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'model/dream.dart';
-import 'model/dream_model.dart';
+import '../model/dream.dart';
+import '../model/dream_model.dart';
 
 class DreamsPage extends StatefulWidget {
   DreamsPage({Key key}) : super(key: key);

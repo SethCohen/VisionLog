@@ -3,8 +3,8 @@ import 'package:visionlog/statistics/mood_pie_chart.dart';
 import 'package:visionlog/statistics/type_count.dart';
 import 'package:visionlog/statistics/type_pie_chart.dart';
 
-import 'model/dream_model.dart';
-import 'statistics/mood_count.dart';
+import '../model/dream_model.dart';
+import '../statistics/mood_count.dart';
 
 class StatisticsPage extends StatefulWidget {
   StatisticsPage({Key key}) : super(key: key);
@@ -14,7 +14,7 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-  String dropdownValue = 'All-time';
+  String _dropdownValue = 'All-time';
   final _model = DreamModel();
 
   Future myMoodFuture;
@@ -22,9 +22,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
   @override
   void initState() {
-    super.initState();
     myMoodFuture = _getMoodCount();
     myTypeFuture = _getTypeCount();
+    super.initState();
   }
 
   @override
@@ -37,7 +37,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
               padding: const EdgeInsets.all(8.0),
               child: DropdownButton<String>(
                 dropdownColor: const Color(0xFF15151C),
-                value: dropdownValue,
+                value: _dropdownValue,
                 icon: Icon(Icons.date_range, color: Colors.white,),
                 iconSize: 24,
                 style: TextStyle(color: Colors.white, fontSize: 17.5),
@@ -46,7 +46,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 ),
                 onChanged: (String newValue) {
                   setState(() {
-                    dropdownValue = newValue;
+                    _dropdownValue = newValue;
+                    myMoodFuture = _getMoodCount();
+                    myTypeFuture = _getTypeCount();
                   });
                 },
                 items: <String>['All-time', 'Yearly', 'Monthly', 'Weekly']
@@ -116,25 +118,20 @@ class _StatisticsPageState extends State<StatisticsPage> {
   }
 
   Future _getMoodCount() async {
-    List<MoodCount> moodCount = await _model.getDreamsMoodCount();
-    print("Mood count: " + moodCount.toString());
+      List<MoodCount> moodCount = await _model.getDreamsMoodCount(_dropdownValue);
+      print("Mood count: " + moodCount.toString());
 
-    await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 1));
 
-    return moodCount;
+      return moodCount;
   }
 
   Future _getTypeCount() async {
-    List<TypeCount> typeCount = await _model.getDreamsTypeCount();
-    print("Type count: " + typeCount.toString());
+      List<TypeCount> typeCount = await _model.getDreamsTypeCount(_dropdownValue);
+      print("Type count: " + typeCount.toString());
 
-    await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 1));
 
-    return typeCount;
-  }
-
-  Future _getFuture() async {
-    var list = [_getMoodCount(), _getTypeCount()];
-    return list;
+      return typeCount;
   }
 }

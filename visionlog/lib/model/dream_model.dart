@@ -51,7 +51,7 @@ class DreamModel {
     return result;
   }
 
-  Future<List<MoodCount>> getDreamsMoodCount() async {
+  Future<List<MoodCount>> getDreamsMoodCount(String timerange) async {
     final db = await DBUtils.init();
 
     List<String> possibleMoods = [
@@ -75,20 +75,32 @@ class DreamModel {
     for (var i = 0; i < possibleMoods.length; i++) {
       String mood = possibleMoods[i];
       charts.Color color = possibleMoodColours[i];
-      int count = Sqflite.firstIntValue(await db.rawQuery(
-          "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood'"));
+      int count;
+      if (timerange == 'All-time') {
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood'"));
+      } else if (timerange == 'Yearly') {
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-12 month')"));
+      } else if (timerange == 'Monthly') {
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-1 month')"));
+      } else if (timerange == 'Weekly') {
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-7 day')"));
+      }
       result.add(MoodCount(mood, count.toDouble(), color));
     }
 
     double sum = result.fold(0, (count, object) => count + object.count);
-    print('sum: ' + sum.toString());
 
     result = result.map((e) => MoodCount(e.moodfeel, e.count/sum, e.color)).toList();
+    print('\nlist' + result.toString());
 
     return result;
   }
 
-  Future<List<TypeCount>> getDreamsTypeCount() async {
+  Future<List<TypeCount>> getDreamsTypeCount(String timerange) async {
     final db = await DBUtils.init();
 
     List<String> possibleTypes = [
@@ -110,16 +122,29 @@ class DreamModel {
     for (var i = 0; i < possibleTypes.length; i++) {
       String type = possibleTypes[i];
       charts.Color color = possibleTypeColours[i];
-      int count = Sqflite.firstIntValue(await db.rawQuery(
-          "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true'"));
+      int count;
+      if (timerange == 'All-time'){
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true'"));
+      } else if (timerange == 'Yearly'){
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-12 month')"));
+      } else if (timerange == 'Monthly'){
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-1 month')"));
+      } else if (timerange == 'Weekly'){
+        count = Sqflite.firstIntValue(await db.rawQuery(
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-7 day')"));
+      }
       result.add(TypeCount(type, count.toDouble(), color));
     }
 
     double sum = result.fold(0, (count, object) => count + object.count);
-    print('sum: ' + sum.toString());
 
     result = result.map((e) => TypeCount(e.type, e.count/sum, e.color)).toList();
     
     return result;
   }
+
+  getDreamsTypeCountYearly() {}
 }

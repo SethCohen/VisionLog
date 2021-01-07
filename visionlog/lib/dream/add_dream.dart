@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'model/dream.dart';
-import 'model/dream_model.dart';
+import '../model/dream.dart';
+import '../model/dream_model.dart';
 
 class AddDream extends StatefulWidget {
   AddDream({Key key, this.title}) : super(key: key);

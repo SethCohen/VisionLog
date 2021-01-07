@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'model/dream.dart';
-import 'model/dream_model.dart';
+import '../model/dream.dart';
+import '../model/dream_model.dart';
 
 class DreamEntree extends StatefulWidget {
   DreamEntree({Key key}) : super(key: key);
