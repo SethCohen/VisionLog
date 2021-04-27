@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/AndroidStudioProjects/VisionLog/visionlog/lib/dream/add_dream.dart';
-import 'file:///D:/AndroidStudioProjects/VisionLog/visionlog/lib/dream/dream_entree.dart';
-import 'file:///D:/AndroidStudioProjects/VisionLog/visionlog/lib/pages/settings_page.dart';
-import 'file:///D:/AndroidStudioProjects/VisionLog/visionlog/lib/pages/statistics_page.dart';
+import 'dream/add_dream.dart';
+import 'dream/dream_entree.dart';
 import 'pages/dreams_page.dart';
+import 'pages/settings_page.dart';
+import 'pages/statistics_page.dart';
 
 void main() {
   runApp(MyApp());
