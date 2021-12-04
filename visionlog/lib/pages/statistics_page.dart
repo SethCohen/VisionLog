@@ -7,7 +7,7 @@ import '../model/dream_model.dart';
 import '../statistics/mood_count.dart';
 
 class StatisticsPage extends StatefulWidget {
-  StatisticsPage({Key key}) : super(key: key);
+  StatisticsPage({Key? key}) : super(key: key);
 
   @override
   _StatisticsPageState createState() => _StatisticsPageState();
@@ -17,8 +17,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
   String _dropdownValue = 'All-time';
   final _model = DreamModel();
 
-  Future myMoodFuture;
-  Future myTypeFuture;
+  late Future myMoodFuture;
+  late Future myTypeFuture;
 
   @override
   void initState() {
@@ -44,9 +44,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 underline: Container(
                   color: Colors.transparent,
                 ),
-                onChanged: (String newValue) {
+                onChanged: (String? newValue) async {
                   setState(() {
-                    _dropdownValue = newValue;
+                    _dropdownValue = newValue!;
                     myMoodFuture = _getMoodCount();
                     myTypeFuture = _getTypeCount();
                   });

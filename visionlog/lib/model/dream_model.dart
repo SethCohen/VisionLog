@@ -75,19 +75,19 @@ class DreamModel {
     for (var i = 0; i < possibleMoods.length; i++) {
       String mood = possibleMoods[i];
       charts.Color color = possibleMoodColours[i];
-      int count;
+      int count = 0;
       if (timerange == 'All-time') {
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood'"));
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood'"))!;
       } else if (timerange == 'Yearly') {
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-12 month')"));
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-12 month')"))!;
       } else if (timerange == 'Monthly') {
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-1 month')"));
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-1 month')"))!;
       } else if (timerange == 'Weekly') {
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-7 day')"));
+            "SELECT COUNT(*) FROM dream_items WHERE moodFeel LIKE '$mood' AND 'datetime' > date('now', '-7 day')"))!;
       }
       result.add(MoodCount(mood, count.toDouble(), color));
     }
@@ -122,19 +122,19 @@ class DreamModel {
     for (var i = 0; i < possibleTypes.length; i++) {
       String type = possibleTypes[i];
       charts.Color color = possibleTypeColours[i];
-      int count;
+      int count = 0;
       if (timerange == 'All-time'){
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true'"));
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true'"))!;
       } else if (timerange == 'Yearly'){
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-12 month')"));
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-12 month')"))!;
       } else if (timerange == 'Monthly'){
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-1 month')"));
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-1 month')"))!;
       } else if (timerange == 'Weekly'){
         count = Sqflite.firstIntValue(await db.rawQuery(
-            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-7 day')"));
+            "SELECT COUNT(*) FROM dream_items WHERE $type LIKE 'true' AND 'datetime' > date('now', '-7 day')"))!;
       }
       result.add(TypeCount(type, count.toDouble(), color));
     }

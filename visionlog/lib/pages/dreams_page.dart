@@ -5,7 +5,7 @@ import '../model/dream.dart';
 import '../model/dream_model.dart';
 
 class DreamsPage extends StatefulWidget {
-  DreamsPage({Key key}) : super(key: key);
+  DreamsPage({Key? key}) : super(key: key);
 
   @override
   _DreamsPageState createState() => _DreamsPageState();
@@ -15,7 +15,7 @@ class _DreamsPageState extends State<DreamsPage> {
   final _model = DreamModel();
 
   //Initializes State future exactly once
-  Future myFuture;
+  late Future myFuture;
 
   @override
   void initState() {

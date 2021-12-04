@@ -6,7 +6,7 @@ import '../model/dream.dart';
 import '../model/dream_model.dart';
 
 class AddDream extends StatefulWidget {
-  AddDream({Key key, this.title}) : super(key: key);
+  AddDream({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -34,7 +34,7 @@ class _AddDreamState extends State<AddDream> {
   bool isContinuousSwitched = false;
 
   final _model = DreamModel();
-  Dream _dream;
+  late Dream _dream;
   var _lastInsertedId = 0;
 
   //  Initializes which ToggleButton is selected in beginning
@@ -47,7 +47,7 @@ class _AddDreamState extends State<AddDream> {
   void initState() {
     Future.delayed(Duration.zero, () {
       setState(() {
-        _dream = ModalRoute.of(context).settings.arguments;
+        _dream = ModalRoute.of(context)!.settings.arguments as Dream;
         print(_dream);
         if (_dream != null) {
           print(_dream);
@@ -415,7 +415,7 @@ class _AddDreamState extends State<AddDream> {
 
   _selectDate(BuildContext context) async {
     //  Creates DateTimePickerDialog
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1900),
@@ -429,7 +429,7 @@ class _AddDreamState extends State<AddDream> {
   }
 
   _selectTime(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
+    final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
@@ -471,7 +471,7 @@ class _AddDreamState extends State<AddDream> {
           lucid: _lucid,
           nightmare: _nightmare,
           recurring: _recurring,
-          continuous: _continuous,
+          continuous: _continuous, id: 0,
         );
 
         if (_dream != null) {

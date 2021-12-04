@@ -5,7 +5,7 @@ import 'package:visionlog/statistics/mood_count.dart';
 class MoodPieChart extends StatefulWidget {
   final List<MoodCount> data;
 
-  MoodPieChart({this.data});
+  MoodPieChart({required this.data});
 
   @override
   _MoodPieChartState createState() => _MoodPieChartState();

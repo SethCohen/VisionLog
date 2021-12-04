@@ -1,15 +1,15 @@
 class Dream {
-  Dream({this.datetime, this.title, this.message, this.moodFeel, this.lucid, this.nightmare, this.recurring, this.continuous});
+  Dream({required this.id, required this.datetime, required this.title, required this.message, required this.moodFeel, required this.lucid, required this.nightmare, required this.recurring, required this.continuous});
 
-  int id;
-  String datetime;
-  String title;
-  String message;
-  String moodFeel;
-  String lucid;
-  String nightmare;
-  String recurring;
-  String continuous;
+  int id = 0;
+  String datetime = '';
+  String title = '';
+  String message = '';
+  String moodFeel = '';
+  String lucid = '';
+  String nightmare = '';
+  String recurring = '';
+  String continuous = '';
 
   Dream.fromMap(Map<String, dynamic> map) {
     this.id = map['id'];

@@ -6,7 +6,7 @@ import 'type_count.dart';
 class TypePieChart extends StatefulWidget {
   final List<TypeCount> data;
 
-  TypePieChart({this.data});
+  TypePieChart({required this.data});
 
   @override
   _TypePieChartState createState() => _TypePieChartState();

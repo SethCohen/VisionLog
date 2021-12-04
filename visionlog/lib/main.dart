@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dream/add_dream.dart';
 import 'dream/dream_entree.dart';
 import 'pages/dreams_page.dart';
+import 'pages/login_page.dart';
 import 'pages/settings_page.dart';
 import 'pages/statistics_page.dart';
 
@@ -39,23 +40,25 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/mainPage',
+      initialRoute: '/loginPage',
       routes: <String, WidgetBuilder>{
-        '/addDream': (BuildContext context) => AddDream(),
+        '/addDream': (BuildContext context) => AddDream(title: '',),
         '/dreamsPage': (BuildContext context) => DreamsPage(),
         '/dreamEntree': (BuildContext context) => DreamEntree(),
         '/mainPage': (BuildContext context) => PageNavigation(),
+        '/loginPage': (BuildContext context) => LoginPage(),
       },
     );
   }
 }
 
 class PageNavigation extends StatefulWidget {
-  PageNavigation({Key key}) : super(key: key);
+  PageNavigation({Key? key}) : super(key: key);
 
   @override
   _PageNavigationState createState() => _PageNavigationState();
 }
+
 class _PageNavigationState extends State<PageNavigation> {
   int _selectedIndex = 0;
 

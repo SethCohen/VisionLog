@@ -5,19 +5,19 @@ import '../model/dream.dart';
 import '../model/dream_model.dart';
 
 class DreamEntree extends StatefulWidget {
-  DreamEntree({Key key}) : super(key: key);
+  DreamEntree({Key? key}) : super(key: key);
 
   @override
   _DreamEntreeState createState() => _DreamEntreeState();
 }
 
 class _DreamEntreeState extends State<DreamEntree> {
-  Dream _dream = Dream();
+  Dream _dream = Dream(id: 0, title: '', continuous: '', nightmare: '', recurring: '', message: '', lucid: '', moodFeel: '', datetime: '');
   final _model = DreamModel();
 
   @override
   Widget build(BuildContext context) {
-    _dream = ModalRoute.of(context).settings.arguments;
+    _dream = ModalRoute.of(context)!.settings.arguments as Dream;
     print(_dream);
     return SafeArea(
         child: Scaffold(
