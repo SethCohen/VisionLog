@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "945522847839",
+    "project_id": "visionlog-69bd8",
+    "storage_bucket": "visionlog-69bd8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945522847839:android:2bdd3fb1a9ce6b0946ebea",
+        "android_client_info": {
+          "package_name": "seth.cohen.visionlog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945522847839-j1bekbtd044rscl94qiircaivbvbra7v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "seth.cohen.visionlog",
+            "certificate_hash": "29a572a05cbf7dc6d66a206cc43b3f48396b9271"
+          }
+        },
+        {
+          "client_id": "945522847839-93picldng53r6c7vopjc7rkf0ebjo18q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp9PvWmPaObJX6f_PdkwWQMG7qofJwETU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945522847839-93picldng53r6c7vopjc7rkf0ebjo18q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
