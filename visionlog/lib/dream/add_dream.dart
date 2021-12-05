@@ -2,12 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../model/dream.dart';
-import '../model/dream_model.dart';
-
 class AddDream extends StatefulWidget {
-  AddDream({Key? key, required this.title}) : super(key: key);
-  final String title;
+  AddDream({Key? key, this.title}) : super(key: key);
+  final String? title;
 
   @override
   _AddDreamState createState() => _AddDreamState();
@@ -32,9 +29,6 @@ class _AddDreamState extends State<AddDream> {
   bool isNightmareSwitched = false;
   bool isRecurringSwitched = false;
   bool isContinuousSwitched = false;
-
-  final _model = DreamModel();
-  late Dream _dream;
   var _lastInsertedId = 0;
 
   //  Initializes which ToggleButton is selected in beginning
@@ -45,53 +39,6 @@ class _AddDreamState extends State<AddDream> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero, () {
-      setState(() {
-        _dream = ModalRoute.of(context)!.settings.arguments as Dream;
-        print(_dream);
-        if (_dream != null) {
-          print(_dream);
-          List<String> _datetime = (_dream.datetime).split(" ");
-          _date = _datetime[0];
-          _time = _datetime[1] + " " + _datetime[2];
-          _moodFeel = _dream.moodFeel;
-          _lucid = _dream.lucid;
-          _nightmare = _dream.nightmare;
-          _recurring = _dream.recurring;
-          _continuous = _dream.continuous;
-          _title = _dream.title;
-          _message = _dream.message;
-
-          if (_lucid == 'true') {
-            isLucidSwitched = true;
-            print("lucid is true");
-          }
-          if (_nightmare == 'true') {
-            isNightmareSwitched = true;
-            print("nightmare is true");
-          }
-          if (_recurring == 'true') isRecurringSwitched = true;
-          if (_continuous == 'true') isContinuousSwitched = true;
-
-          if (_moodFeel == 'terrible')
-            isSelected = [true, false, false, false, false];
-          if (_moodFeel == 'bad')
-            isSelected = [false, true, false, false, false];
-          if (_moodFeel == 'average')
-            isSelected = [false, false, true, false, false];
-          if (_moodFeel == 'okay')
-            isSelected = [false, false, false, true, false];
-          if (_moodFeel == 'fantastic')
-            isSelected = [false, false, false, false, true];
-
-          _titleTextEditingController.text = _title;
-          _messageTextEditingController.text = _message;
-        } else {
-          _time = selectedTime.format(context);
-          _date = formatter.format(selectedDate);
-        }
-      });
-    });
 
     super.initState();
   }
@@ -404,7 +351,6 @@ class _AddDreamState extends State<AddDream> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            _showAlertDialog(context);
           },
           tooltip: 'Save',
           child: Icon(Icons.save),
@@ -438,80 +384,5 @@ class _AddDreamState extends State<AddDream> {
         selectedTime = picked;
         _time = selectedTime.format(context);
       });
-  }
-
-  Future<void> _addDream(Dream dream) async {
-    _lastInsertedId = await _model.insertDream(dream);
-    print('Dream inserted: $_lastInsertedId');
-  }
-
-  Future<void> _updateDream(Dream dream) async {
-    if (_dream.id != null) {
-      await _model.updateDream(dream);
-      print("Updated Dream at ID: " + _dream.id.toString());
-    }
-  }
-
-  _showAlertDialog(BuildContext context) {
-    // set up the buttons
-    Widget cancelButton = FlatButton(
-      child: Text("Cancel"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-    Widget confirmButton = FlatButton(
-      child: Text("Confirm"),
-      onPressed: () {
-        Dream newDream = Dream(
-          datetime: _date + ' ' + _time,
-          title: _title,
-          message: _message,
-          moodFeel: _moodFeel,
-          lucid: _lucid,
-          nightmare: _nightmare,
-          recurring: _recurring,
-          continuous: _continuous, id: 0,
-        );
-
-        if (_dream != null) {
-          newDream.id = _dream.id;
-          print("updating...");
-          print(newDream);
-          _updateDream(newDream);
-
-          int count = 0;
-          Navigator.popUntil(context, (route) {
-            return count++ == 4;
-          });
-        }
-        else {
-          _addDream(newDream);
-          Navigator.of(context).pop(newDream);
-          Navigator.of(context).pop(newDream);
-        }
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      backgroundColor: const Color(0xFF121219),
-      title: Text(
-        'Are you sure you want to save?',
-        style: TextStyle(color: Colors.white70),
-      ),
-      actions: [
-        cancelButton,
-        confirmButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 }

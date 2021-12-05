@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:visionlog/pages/dreams_page.dart';
 import 'package:visionlog/pages/home_page.dart';
 import 'package:visionlog/provider/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'dream/add_dream.dart';
+import 'dream/dream_entree.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,5 +41,10 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: HomePage(),
+        routes: <String, WidgetBuilder>{
+          '/addDream': (BuildContext context) => AddDream(),
+          '/dreamsPage': (BuildContext context) => DreamsPage(),
+          '/dreamEntree': (BuildContext context) => DreamEntree(),
+        },
       ));
 }
