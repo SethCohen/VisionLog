@@ -5,8 +5,8 @@ import 'package:visionlog/pages/home_page.dart';
 import 'package:visionlog/provider/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'dream/add_dream.dart';
-import 'dream/dream_entree.dart';
+import 'widgets/add_dream.dart';
+import 'widgets/dream_entree.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

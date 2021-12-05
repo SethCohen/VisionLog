@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:visionlog/widgets/dream_list.dart';
 
 class DreamsPage extends StatefulWidget {
   DreamsPage({Key? key}) : super(key: key);
@@ -20,6 +22,17 @@ class _DreamsPageState extends State<DreamsPage> {
       appBar: AppBar(
         title: Text('Dreams'),
       ),
+      body: FutureBuilder(
+          future: Firebase.initializeApp(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return DreamList();
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Something went wrong!'));
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddDreamWidget,
         tooltip: 'Add Dream',
@@ -35,9 +48,6 @@ class _DreamsPageState extends State<DreamsPage> {
   }
 
   Future<void> _showDreamEntreeWidget(argument) async {
-    await Navigator.pushNamed(context, '/dreamEntree',
-        arguments: (argument));
+    await Navigator.pushNamed(context, '/dreamEntree', arguments: (argument));
   }
-
-
 }
