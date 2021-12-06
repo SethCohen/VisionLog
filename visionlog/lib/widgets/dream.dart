@@ -4,6 +4,11 @@ class Dream {
   String? title;
   String? message;
   String? feel;
+  DateTime? datetime;
+  bool? isLucid;
+  bool? isNightmare;
+  bool? isRecurring;
+  bool? isContinuous;
   DocumentReference? reference;
 
 
@@ -11,5 +16,10 @@ class Dream {
     this.title = map['title'];
     this.message = map['message'];
     this.feel = map['feel'];
+    this.datetime = map['timestamp'].toDate();
+    this.isLucid = map['is_lucid'];
+    this.isNightmare = map['is_nightmare'];
+    this.isRecurring = map['is_recurring'];
+    this.isContinuous = map['is_continuous'];
   }
 }

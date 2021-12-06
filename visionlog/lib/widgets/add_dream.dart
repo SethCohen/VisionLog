@@ -1,29 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddDream extends StatefulWidget {
-  AddDream({Key? key, this.title}) : super(key: key);
-  final String? title;
+  AddDream({Key? key}) : super(key: key);
 
   @override
   _AddDreamState createState() => _AddDreamState();
 }
 
 class _AddDreamState extends State<AddDream> {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
-  DateFormat formatter = DateFormat('yyyy-MM-dd');
+  DateTime _selectedDate = DateTime.now();
+  TimeOfDay _selectedTime = TimeOfDay.now();
 
-  String _date = '';
-  String _time = '';
+  final _user = FirebaseAuth.instance.currentUser!;
+  String _date = DateFormat.yMd().format(DateTime.now());
+  String _time = DateFormat.jm().format(DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+      TimeOfDay.now().hour,
+      TimeOfDay.now().minute));
   String _title = '';
   String _message = '';
-  String _moodFeel = 'average';
-  String _lucid = 'false';
-  String _nightmare = 'false';
-  String _recurring = 'false';
-  String _continuous = 'false';
+  String _feel = 'average';
+  bool _lucid = false;
+  bool _nightmare = false;
+  bool _recurring = false;
+  bool _continuous = false;
 
   bool isLucidSwitched = false;
   bool isNightmareSwitched = false;
@@ -31,16 +37,35 @@ class _AddDreamState extends State<AddDream> {
   bool isContinuousSwitched = false;
   var _lastInsertedId = 0;
 
-  //  Initializes which ToggleButton is selected in beginning
-  List<bool> isSelected = [false, false, true, false, false];
+  //  Initializes which Feel ToggleButton is selected by default.
+  List<bool> feelSelected = [false, false, true, false, false];
 
   TextEditingController _titleTextEditingController = TextEditingController();
   TextEditingController _messageTextEditingController = TextEditingController();
 
   @override
   void initState() {
-
     super.initState();
+  }
+
+  CollectionReference dreams = FirebaseFirestore.instance.collection('dreams');
+
+  Future<void> addUser() {
+    return dreams
+        .add({
+          'user_uid': _user.uid,
+          'timestamp': DateTime(_selectedDate.year, _selectedDate.month,
+              _selectedDate.day, _selectedTime.hour, _selectedTime.minute),
+          'feel': _feel,
+          'title': _title,
+          'message': _message,
+          'is_lucid': _lucid,
+          'is_nightmare': _nightmare,
+          'is_recurring': _recurring,
+          'is_continuous': _continuous
+        })
+        .then((value) => print("Dream Added"))
+        .catchError((error) => print("Failed to add dream: $error"));
   }
 
   @override
@@ -64,13 +89,15 @@ class _AddDreamState extends State<AddDream> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    OutlineButton(
-                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
-                      visualDensity: VisualDensity.compact,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(4.0)),
+                    OutlinedButton(
                       onPressed: () => _selectDate(context),
-                      textColor: Colors.white60,
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: const Color(0xff2C2B30)),
+                        visualDensity: VisualDensity.compact,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(4.0)),
+                        primary: Colors.white60,
+                      ),
                       child: Text(
                         _date,
                         textScaleFactor: 1.25,
@@ -79,13 +106,15 @@ class _AddDreamState extends State<AddDream> {
                     Divider(
                       indent: 8.0,
                     ),
-                    OutlineButton(
-                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
-                      visualDensity: VisualDensity.compact,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(4.0)),
+                    OutlinedButton(
                       onPressed: () => _selectTime(context),
-                      textColor: Colors.white60,
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: const Color(0xff2C2B30)),
+                        visualDensity: VisualDensity.compact,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(4.0)),
+                        primary: Colors.white60,
+                      ),
                       child: Text(
                         _time,
                         textScaleFactor: 1.25,
@@ -122,12 +151,12 @@ class _AddDreamState extends State<AddDream> {
                         setState(() {
                           //  Prevents more than one button being selected
                           for (int buttonIndex = 0;
-                              buttonIndex < isSelected.length;
+                              buttonIndex < feelSelected.length;
                               buttonIndex++) {
                             if (buttonIndex == index) {
-                              isSelected[buttonIndex] = true;
+                              feelSelected[buttonIndex] = true;
                             } else {
-                              isSelected[buttonIndex] = false;
+                              feelSelected[buttonIndex] = false;
                             }
                           }
                         });
@@ -135,32 +164,32 @@ class _AddDreamState extends State<AddDream> {
                         switch (index) {
                           case 0:
                             {
-                              _moodFeel = 'terrible';
+                              _feel = 'terrible';
                             }
                             break;
                           case 1:
                             {
-                              _moodFeel = 'bad';
+                              _feel = 'bad';
                             }
                             break;
                           case 2:
                             {
-                              _moodFeel = 'average';
+                              _feel = 'average';
                             }
                             break;
                           case 3:
                             {
-                              _moodFeel = 'okay';
+                              _feel = 'okay';
                             }
                             break;
                           case 4:
                             {
-                              _moodFeel = 'fantastic';
+                              _feel = 'fantastic';
                             }
                             break;
                           default:
                             {
-                              _moodFeel = 'average';
+                              _feel = 'average';
                             }
                             break;
                         }
@@ -169,7 +198,7 @@ class _AddDreamState extends State<AddDream> {
                       borderColor: Colors.transparent,
                       fillColor: Colors.transparent,
                       color: Colors.white10,
-                      isSelected: isSelected,
+                      isSelected: feelSelected,
                     ),
                   ],
                 ),
@@ -191,7 +220,7 @@ class _AddDreamState extends State<AddDream> {
                         onChanged: (value) {
                           setState(() {
                             isLucidSwitched = value;
-                            _lucid = value.toString();
+                            _lucid = value;
                           });
                         },
                         inactiveTrackColor: Colors.white38,
@@ -218,14 +247,13 @@ class _AddDreamState extends State<AddDream> {
                         onChanged: (value) {
                           setState(() {
                             isNightmareSwitched = value;
-                            _nightmare = value.toString();
-                            isSelected[0] = true;
-                            isSelected[1] = false;
-                            isSelected[2] = false;
-                            isSelected[3] = false;
-                            isSelected[4] = false;
-                            _moodFeel = 'terrible';
-                            print(_moodFeel);
+                            _nightmare = value;
+                            feelSelected[0] = true;
+                            feelSelected[1] = false;
+                            feelSelected[2] = false;
+                            feelSelected[3] = false;
+                            feelSelected[4] = false;
+                            _feel = 'terrible';
                           });
                         },
                         inactiveTrackColor: Colors.white38,
@@ -252,7 +280,7 @@ class _AddDreamState extends State<AddDream> {
                         onChanged: (value) {
                           setState(() {
                             isRecurringSwitched = value;
-                            _recurring = value.toString();
+                            _recurring = value;
                           });
                         },
                         inactiveTrackColor: Colors.white38,
@@ -279,7 +307,7 @@ class _AddDreamState extends State<AddDream> {
                         onChanged: (value) {
                           setState(() {
                             isContinuousSwitched = value;
-                            _continuous = value.toString();
+                            _continuous = value;
                           });
                         },
                         inactiveTrackColor: Colors.white38,
@@ -351,6 +379,8 @@ class _AddDreamState extends State<AddDream> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            addUser();
+            Navigator.pop(context);
           },
           tooltip: 'Save',
           child: Icon(Icons.save),
@@ -363,26 +393,27 @@ class _AddDreamState extends State<AddDream> {
     //  Creates DateTimePickerDialog
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: _selectedDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != _selectedDate)
       setState(() {
-        selectedDate = picked;
-        _date = formatter.format(selectedDate);
+        _selectedDate = picked;
+        _date = DateFormat.yMd().format(_selectedDate);
       });
   }
 
   _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: selectedTime,
+      initialTime: _selectedTime,
     );
-    if (picked != null && picked != selectedTime)
+    if (picked != null && picked != _selectedTime)
       setState(() {
-        selectedTime = picked;
-        _time = selectedTime.format(context);
+        _selectedTime = picked;
+
+        _time = _selectedTime.format(context);
       });
   }
 }
