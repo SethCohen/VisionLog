@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Dream {
   String? title;
   String? message;
-  String? feel;
-  DateTime? datetime;
-  bool? isLucid;
-  bool? isNightmare;
-  bool? isRecurring;
-  bool? isContinuous;
+  String feel = "average";
+  DateTime datetime = DateTime.now();
+  bool isLucid = false;
+  bool isNightmare = false;
+  bool isRecurring = false;
+  bool isContinuous = false;
   DocumentReference? reference;
 
 

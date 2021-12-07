@@ -81,7 +81,7 @@ class _DreamListState extends State<DreamList> {
             Text(
                 DateFormat.yMd()
                     .add_jm()
-                    .format(dream.datetime ?? DateTime.now()),
+                    .format(dream.datetime),
                 style: TextStyle(
                     color: Colors.white38,
                     fontWeight: FontWeight.bold,
@@ -94,6 +94,6 @@ class _DreamListState extends State<DreamList> {
   }
 
   Future<void> _showDreamEntree(dream) async {
-    await Navigator.pushNamed(context, '/dreamEntree', arguments: (dream));
+    Navigator.pushNamed(context, '/dreamEntree', arguments: (dream)).then((_) => setState(() {}));
   }
 }

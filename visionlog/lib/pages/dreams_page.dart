@@ -42,6 +42,6 @@ class _DreamsPageState extends State<DreamsPage> {
   }
 
   Future<void> _showAddDreamWidget() async {
-    await Navigator.pushNamed(context, '/addDream');
+    Navigator.pushNamed(context, '/addDream').then((_) => setState(() {}));
   }
 }
