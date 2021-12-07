@@ -1,21 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AddDream extends StatefulWidget {
-  AddDream({Key? key}) : super(key: key);
+import 'dream.dart';
+
+class EditDream extends StatefulWidget {
+  EditDream({Key? key}) : super(key: key);
 
   @override
-  _AddDreamState createState() => _AddDreamState();
+  _EditDreamState createState() => _EditDreamState();
 }
 
-class _AddDreamState extends State<AddDream> {
+class _EditDreamState extends State<EditDream> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
 
-  final _user = FirebaseAuth.instance.currentUser!;
   String _date = DateFormat.yMd().format(DateTime.now());
   String _time = DateFormat.jm().format(DateTime(
       DateTime.now().year,
@@ -31,28 +30,14 @@ class _AddDreamState extends State<AddDream> {
   bool _recurring = false;
   bool _continuous = false;
 
-  bool isLucidSwitched = false;
-  bool isNightmareSwitched = false;
-  bool isRecurringSwitched = false;
-  bool isContinuousSwitched = false;
-
-  //  Initializes which Feel ToggleButton is selected by default.
-  List<bool> feelSelected = [false, false, true, false, false];
-
-  TextEditingController _titleTextEditingController = TextEditingController();
-  TextEditingController _messageTextEditingController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
   }
 
-  CollectionReference dreams = FirebaseFirestore.instance.collection('dreams');
-
-  Future<void> addDream() {
-    return dreams
-        .add({
-          'user_uid': _user.uid,
+  Future<void> editDream(dream) {
+    return dream.reference!
+        .update({
           'timestamp': DateTime(_selectedDate.year, _selectedDate.month,
               _selectedDate.day, _selectedTime.hour, _selectedTime.minute),
           'feel': _feel,
@@ -63,12 +48,47 @@ class _AddDreamState extends State<AddDream> {
           'is_recurring': _recurring,
           'is_continuous': _continuous
         })
-        .then((value) => print("Dream Added"))
-        .catchError((error) => print("Failed to add dream: $error"));
+        .then((value) => print("Dream Edited"))
+        .catchError((error) => print("Failed to edit dream: $error"));
   }
 
   @override
   Widget build(BuildContext context) {
+    final dream = ModalRoute.of(context)!.settings.arguments as Dream;
+    _selectedDate = dream.datetime;
+    _selectedTime = TimeOfDay.fromDateTime(dream.datetime);
+
+    bool isLucidSwitched = dream.isLucid;
+    bool isNightmareSwitched = dream.isNightmare;
+    bool isRecurringSwitched = dream.isRecurring;
+    bool isContinuousSwitched = dream.isContinuous;
+
+    _date = DateFormat.yMd().format(_selectedDate);
+    _time = DateFormat.jm().format(DateTime(
+        _selectedDate.year,
+        _selectedDate.month,
+        _selectedDate.day,
+        _selectedTime.hour,
+        _selectedTime.minute));
+    _title = dream.title!;
+    _message = dream.message!;
+    _feel = dream.feel;
+    _lucid = dream.isLucid;
+    _nightmare = dream.isNightmare;
+    _recurring = dream.isRecurring;
+    _continuous = dream.isContinuous;
+
+    List<bool> feelSelected = [
+      dream.feel == 'terrible' ? true : false,
+      dream.feel == 'bad' ? true : false,
+      dream.feel == 'average' ? true : false,
+      dream.feel == 'okay' ? true : false,
+      dream.feel == 'fantastic' ? true : false
+    ];
+
+    TextEditingController _titleTextEditingController = TextEditingController(text: _title);
+    TextEditingController _messageTextEditingController = TextEditingController(text: _message);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -378,8 +398,8 @@ class _AddDreamState extends State<AddDream> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            addDream();
-            Navigator.pop(context);
+            editDream(dream);
+            Navigator.of(context).popUntil((route) => route.isFirst);
           },
           tooltip: 'Save',
           child: Icon(Icons.save),

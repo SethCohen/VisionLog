@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:visionlog/pages/dreams_page.dart';
 import 'package:visionlog/pages/home_page.dart';
 import 'package:visionlog/provider/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:visionlog/widgets/edit_dream.dart';
 
 import 'widgets/add_dream.dart';
 import 'widgets/dream_entree.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         home: HomePage(),
         routes: <String, WidgetBuilder>{
           '/addDream': (BuildContext context) => AddDream(),
-          '/dreamsPage': (BuildContext context) => DreamsPage(),
+          '/editDream': (BuildContext context) => EditDream(),
           '/dreamEntree': (BuildContext context) => DreamEntree(),
         },
       ));

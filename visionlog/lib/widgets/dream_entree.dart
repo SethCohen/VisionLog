@@ -33,7 +33,8 @@ class _DreamEntreeState extends State<DreamEntree> {
       appBar: AppBar(
         title: Text(dream.title ?? "No title"),
         actions: [
-          IconButton(icon: Icon(Icons.create), onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.create), onPressed: () => _showEditDream(dream)),
           IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
@@ -58,8 +59,9 @@ class _DreamEntreeState extends State<DreamEntree> {
                   SizedBox(width: 10),
                   Text("Dream felt ${dream.feel}.",
                       style: TextStyle(
-                          color: Colors.white38,
-                          fontWeight: FontWeight.bold,))
+                        color: Colors.white38,
+                        fontWeight: FontWeight.bold,
+                      ))
                 ]),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -104,5 +106,10 @@ class _DreamEntreeState extends State<DreamEntree> {
         ),
       ),
     ));
+  }
+
+  Future<void> _showEditDream(dream) async {
+    Navigator.pushNamed(context, '/editDream', arguments: (dream))
+        .then((_) => setState(() {}));
   }
 }
