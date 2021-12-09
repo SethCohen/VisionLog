@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:visionlog/provider/dream_documents.dart';
+import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class DreamsPage extends StatefulWidget {

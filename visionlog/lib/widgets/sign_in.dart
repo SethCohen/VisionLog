@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:visionlog/provider/google_sign_in.dart';
+import 'package:visionlog/provider/google_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SignIn extends StatelessWidget {
