@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:visionlog/provider/google_sign_in.dart';
+import 'package:visionlog/widgets/sign_out.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key? key}) : super(key: key);
@@ -19,6 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
+        actions: [SignOut()],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -26,25 +26,6 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(user.photoURL!)
-              ),
-              Text(
-                'Name: ' + user.displayName!
-              ),
-              TextButton(
-                  onPressed: (){
-                    final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                    provider.googleLogout();
-
-                  }, // TODO finish export database
-                  child: Text(
-                    'Logout',
-                    textScaleFactor: 1.25,
-                    style: TextStyle(color: Colors.white70),
-                  )),
               TextButton(
                   onPressed: _launchGithubURL, // TODO finish export database
                   child: Text(
@@ -53,7 +34,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  onPressed: _launchGithubURL, // TODO finish export old dreams
+                  onPressed: _launchGithubURL,
+                  // TODO finish export old dreams
                   child: Text(
                     'Export old dreams',
                     textScaleFactor: 1.25,
@@ -137,7 +119,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-
 
   _launchPersonalSiteURL() async {
     const url = 'https://sethdev.ca/';

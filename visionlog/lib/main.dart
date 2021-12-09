@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           scaffoldBackgroundColor: const Color(0xFF15151C),
+          disabledColor: Colors.white70,
           textTheme: TextTheme(
             subtitle1: TextStyle(color: Colors.white70),
             caption: TextStyle(color: Colors.white70),
@@ -37,6 +38,10 @@ class MyApp extends StatelessWidget {
             color: const Color(0xFF121219),
             shadowColor: Colors.white38,
             elevation: 3,
+          ),
+          popupMenuTheme: PopupMenuThemeData(
+            color: const Color(0xFF15151C),
+            textStyle: TextStyle(color: Colors.white70)
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
