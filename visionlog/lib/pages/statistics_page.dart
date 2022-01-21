@@ -9,6 +9,9 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
+
+  DateTime _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
+
   @override
   void initState() {
     super.initState();
@@ -21,30 +24,35 @@ class _StatisticsPageState extends State<StatisticsPage> {
           title: Text('Statistics'),
           actions: [
             PopupMenuButton(
+              onSelected: (value) {
+                setState(() {
+                  _dateSelected = value as DateTime;
+                });
+              },
               icon: Icon(Icons.date_range),
               itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                const PopupMenuItem(
-                  value: 0,
+                PopupMenuItem(
+                  value: DateTime.fromMillisecondsSinceEpoch(0),
                   child: Text('All-Time'),
                 ),
-                const PopupMenuItem(
-                  value: 1,
+                PopupMenuItem(
+                  value: DateTime.now().subtract(const Duration(days: 365)),
                   child: Text('Yearly'),
                 ),
-                const PopupMenuItem(
-                  value: 2,
+                PopupMenuItem(
+                  value: DateTime.now().subtract(const Duration(days: 180)),
                   child: Text('Semi Yearly'),
                 ),
-                const PopupMenuItem(
-                  value: 3,
+                PopupMenuItem(
+                  value: DateTime.now().subtract(const Duration(days: 90)),
                   child: Text('Quarterly'),
                 ),
-                const PopupMenuItem(
-                  value: 4,
+                PopupMenuItem(
+                  value: DateTime.now().subtract(const Duration(days: 30)),
                   child: Text('Monthly'),
                 ),
-                const PopupMenuItem(
-                  value: 5,
+                PopupMenuItem(
+                  value: DateTime.now().subtract(const Duration(days: 7)),
                   child: Text('Weekly'),
                 ),
               ],
@@ -57,7 +65,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
             children: [
               SizedBox(
                 height: 300.0,
-                child: FeelPieChart(),
+                child: FeelPieChart(_dateSelected),
               )
             ],
           ),

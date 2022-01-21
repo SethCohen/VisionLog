@@ -22,4 +22,9 @@ class Dream {
     this.isRecurring = map['is_recurring'];
     this.isContinuous = map['is_continuous'];
   }
+
+  @override
+  String toString() {
+    return '\nDream: {title: $title, message: $message, feel: $feel, datetime: $datetime, isLucid: $isLucid, isNightmare: $isNightmare, isRecurring: $isRecurring, isContinuous: $isContinuous}';
+  }
 }

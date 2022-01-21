@@ -1,5 +1,4 @@
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:visionlog/provider/dream_documents_provider.dart';
@@ -7,11 +6,15 @@ import 'package:visionlog/widgets/dream.dart';
 
 class FeelPieChart extends StatelessWidget {
 
-  FeelPieChart();
+  FeelPieChart(this.dateSelected);
+
+  final DateTime dateSelected;
 
   @override
   Widget build(BuildContext context) {
-    var docs = context.watch<Documents>().documents;
+    var docs = context.watch<Documents>().documents!.map((dream) => Dream.fromMap(dream.data() as Map<String, dynamic>,
+        reference: dream.reference)).where((dream) => dream.datetime.isAfter(dateSelected)).toList();
+    print(docs);
 
     List<charts.Series<MoodCount, String>> _series = [
       charts.Series<MoodCount, String>(
@@ -21,7 +24,7 @@ class FeelPieChart extends StatelessWidget {
         colorFn: (MoodCount mood, _) => mood.color,
         data: _buildData(docs),
         labelAccessorFn: (MoodCount row, _) =>
-            '${(row.count/docs!.length * 100).toStringAsFixed(1)}%',
+            '${(row.count/docs.length * 100).toStringAsFixed(1)}%',
       ),
     ];
 
@@ -46,7 +49,7 @@ class FeelPieChart extends StatelessWidget {
         ]));
   }
 
-  _buildData(List<QueryDocumentSnapshot<Object?>>? docs) {
+  _buildData(List<Dream>? docs) {
     double terribleCount = 0,
         badCount = 0,
         averageCount = 0,
@@ -54,9 +57,7 @@ class FeelPieChart extends StatelessWidget {
         fantasticCount = 0;
 
     if (docs != null) {
-      docs.forEach((DocumentSnapshot document) {
-        final dream = Dream.fromMap(document.data() as Map<String, dynamic>,
-            reference: document.reference);
+      docs.forEach((Dream dream) {
         switch (dream.feel) {
           case 'terrible':
             {
