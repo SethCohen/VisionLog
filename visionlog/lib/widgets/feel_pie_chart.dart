@@ -16,14 +16,14 @@ class FeelPieChart extends StatelessWidget {
         reference: dream.reference)).where((dream) => dream.datetime.isAfter(dateSelected)).toList();
     print(docs);
 
-    List<charts.Series<MoodCount, String>> _series = [
-      charts.Series<MoodCount, String>(
-        id: 'Mood',
-        domainFn: (MoodCount mood, _) => mood.feel,
-        measureFn: (MoodCount mood, _) => mood.count,
-        colorFn: (MoodCount mood, _) => mood.color,
+    List<charts.Series<FeelCount, String>> _series = [
+      charts.Series<FeelCount, String>(
+        id: 'Feel',
+        domainFn: (FeelCount feel, _) => feel.title,
+        measureFn: (FeelCount feel, _) => feel.count,
+        colorFn: (FeelCount feel, _) => feel.color,
         data: _buildData(docs),
-        labelAccessorFn: (MoodCount row, _) =>
+        labelAccessorFn: (FeelCount row, _) =>
             '${(row.count/docs.length * 100).toStringAsFixed(1)}%',
       ),
     ];
@@ -93,29 +93,29 @@ class FeelPieChart extends StatelessWidget {
       });
 
       return [
-        MoodCount("terrible", terribleCount,
+        FeelCount("Terrible", terribleCount,
             charts.ColorUtil.fromDartColor(Color(0xFF882255))),
-        MoodCount("bad", badCount,
+        FeelCount("Bad", badCount,
             charts.ColorUtil.fromDartColor(Color(0xFFDDCC77))),
-        MoodCount("average", averageCount,
+        FeelCount("Average", averageCount,
             charts.ColorUtil.fromDartColor(Color(0xFF88CCEE))),
-        MoodCount("okay", okayCount,
+        FeelCount("Okay", okayCount,
             charts.ColorUtil.fromDartColor(Color(0xFF117733))),
-        MoodCount("fantastic", fantasticCount,
+        FeelCount("Fantastic", fantasticCount,
             charts.ColorUtil.fromDartColor(Color(0xFF3A27A8))),
       ];
     }
   }
 }
 
-class MoodCount {
-  final String feel;
+class FeelCount {
+  final String title;
   final double count;
   final charts.Color color;
 
-  MoodCount(this.feel, this.count, this.color);
+  FeelCount(this.title, this.count, this.color);
 
   String toString() {
-    return '\nMoodCount{feel: $feel, count: $count}';
+    return '\nFeelCount{title: $title, count: $count}';
   }
 }
