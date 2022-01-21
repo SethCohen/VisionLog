@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:visionlog/widgets/feel_pie_chart.dart';
+import 'package:visionlog/widgets/type_pie_chart.dart';
 
 class StatisticsPage extends StatefulWidget {
   StatisticsPage({Key? key}) : super(key: key);
@@ -9,8 +10,8 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-
   DateTime _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
+  dynamic _chart = FeelPieChart(DateTime.fromMillisecondsSinceEpoch(0));
 
   @override
   void initState() {
@@ -23,6 +24,24 @@ class _StatisticsPageState extends State<StatisticsPage> {
         appBar: AppBar(
           title: Text('Statistics'),
           actions: [
+            PopupMenuButton(
+              onSelected: (value) {
+                setState(() {
+                  _chart = value as dynamic;
+                });
+              },
+              icon: Icon(Icons.pie_chart),
+              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                PopupMenuItem(
+                  value: FeelPieChart(_dateSelected),
+                  child: Text('Feel'),
+                ),
+                PopupMenuItem(
+                  value: TypePieChart(_dateSelected),
+                  child: Text('Type'),
+                ),
+              ],
+            ),
             PopupMenuButton(
               onSelected: (value) {
                 setState(() {
@@ -65,7 +84,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
             children: [
               SizedBox(
                 height: 300.0,
-                child: FeelPieChart(_dateSelected),
+                child: _chart,
               )
             ],
           ),
