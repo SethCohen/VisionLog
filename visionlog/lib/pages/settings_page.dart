@@ -182,7 +182,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
-                          text: "What's new in v4.0.0\n",
+                          text: "What's new in v${_packageInfo.version}\n",
                           children: [
                             TextSpan(
                                 style: TextStyle(
