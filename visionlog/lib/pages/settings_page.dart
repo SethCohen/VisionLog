@@ -30,7 +30,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: _launchGithubURL, // TODO finish export database
                   child: Text(
                     'Export database',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
@@ -38,7 +37,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   // TODO finish export old dreams
                   child: Text(
                     'Export old dreams',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               Divider(
@@ -48,14 +46,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: _launchReportIssueGithubURL,
                   child: Text(
                     'Report an issue via Github',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
                   onPressed: _launchReportIssueGmailURL,
                   child: Text(
                     'Report an issue via Gmail',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               Divider(
@@ -65,35 +61,24 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: _launchGithubURL,
                   child: Text(
                     'Github',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
                   onPressed: _launchReviewURL,
                   child: Text(
                     'Rate This App',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
                   onPressed: _launchPrivacyPolicyURL,
                   child: Text(
                     'Privacy Policy',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
                   onPressed: null, // TODO changelog
                   child: Text(
-                    'Changelog',
-                    textScaleFactor: 1.25,
-                    style: TextStyle(color: Colors.white70),
-                  )),
-              TextButton(
-                  onPressed: null, // TODO roadmap
-                  child: Text(
-                    'Roadmap',
-                    textScaleFactor: 1.25,
+                    'Recent Changes',
                     style: TextStyle(color: Colors.white70),
                   )),
               Divider(
@@ -103,14 +88,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: _launchPersonalSiteURL,
                   child: Text(
                     'My Website',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
                   onPressed: _launchSupportURL, // TODO finish buy a coffee
                   child: Text(
                     'Buy Me a Coffee',
-                    textScaleFactor: 1.25,
                     style: TextStyle(color: Colors.white70),
                   )),
             ],
