@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:visionlog/widgets/feel_pie_chart.dart';
+import 'package:visionlog/widgets/numerical_chart.dart';
 import 'package:visionlog/widgets/type_pie_chart.dart';
 
 class StatisticsPage extends StatefulWidget {
@@ -39,6 +40,10 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 PopupMenuItem(
                   value: TypePieChart(_dateSelected),
                   child: Text('Type'),
+                ),
+                PopupMenuItem(
+                  value: NumericalChart(_dateSelected),
+                  child: Text('Numerical'),
                 ),
               ],
             ),

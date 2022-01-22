@@ -5,16 +5,19 @@ import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class FeelPieChart extends StatelessWidget {
-
   FeelPieChart(this.dateSelected);
 
   final DateTime dateSelected;
 
   @override
   Widget build(BuildContext context) {
-    var docs = context.watch<Documents>().documents!.map((dream) => Dream.fromMap(dream.data() as Map<String, dynamic>,
-        reference: dream.reference)).where((dream) => dream.datetime.isAfter(dateSelected)).toList();
-    print(docs);
+    var docs = context
+        .watch<Documents>()
+        .documents!
+        .map((dream) => Dream.fromMap(dream.data() as Map<String, dynamic>,
+            reference: dream.reference))
+        .where((dream) => dream.datetime.isAfter(dateSelected))
+        .toList();
 
     List<charts.Series<FeelCount, String>> _series = [
       charts.Series<FeelCount, String>(
@@ -24,7 +27,7 @@ class FeelPieChart extends StatelessWidget {
         colorFn: (FeelCount feel, _) => feel.color,
         data: _buildData(docs),
         labelAccessorFn: (FeelCount row, _) =>
-            '${(row.count/docs.length * 100).toStringAsFixed(1)}%',
+            '${(row.count / docs.length * 100).toStringAsFixed(1)}%',
       ),
     ];
 
@@ -95,8 +98,8 @@ class FeelPieChart extends StatelessWidget {
       return [
         FeelCount("Terrible", terribleCount,
             charts.ColorUtil.fromDartColor(Color(0xFF882255))),
-        FeelCount("Bad", badCount,
-            charts.ColorUtil.fromDartColor(Color(0xFFDDCC77))),
+        FeelCount(
+            "Bad", badCount, charts.ColorUtil.fromDartColor(Color(0xFFDDCC77))),
         FeelCount("Average", averageCount,
             charts.ColorUtil.fromDartColor(Color(0xFF88CCEE))),
         FeelCount("Okay", okayCount,

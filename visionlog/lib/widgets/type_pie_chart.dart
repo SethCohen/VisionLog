@@ -18,7 +18,6 @@ class TypePieChart extends StatelessWidget {
             reference: dream.reference))
         .where((dream) => dream.datetime.isAfter(dateSelected))
         .toList();
-    print(docs);
 
     List<charts.Series<TypeCount, String>> _series = [
       charts.Series<TypeCount, String>(
