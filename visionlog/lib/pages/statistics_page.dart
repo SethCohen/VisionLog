@@ -81,18 +81,22 @@ class _StatisticsPageState extends State<StatisticsPage> {
                     switch (newValue) {
                       case 'All-Time':
                         _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
+                        _chart = FeelPieChart(_dateSelected);
                         break;
                       case 'Yearly':
                         _dateSelected =
                             DateTime.now().subtract(const Duration(days: 365));
+                        _chart = FeelPieChart(_dateSelected);
                         break;
                       case 'Semi Yearly':
                         _dateSelected =
                             DateTime.now().subtract(const Duration(days: 180));
+                        _chart = FeelPieChart(_dateSelected);
                         break;
                       case 'Quarterly':
                         _dateSelected =
                             DateTime.now().subtract(const Duration(days: 90));
+                        _chart = FeelPieChart(_dateSelected);
                         break;
                       case 'Monthly':
                         _dateSelected =
@@ -101,6 +105,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                       case 'Weekly':
                         _dateSelected =
                             DateTime.now().subtract(const Duration(days: 7));
+                        _chart = FeelPieChart(_dateSelected);
                         break;
                     }
                   });
