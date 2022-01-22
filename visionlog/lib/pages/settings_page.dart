@@ -103,7 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   )),
               TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
-                  onPressed: null, // TODO changelog
+                  onPressed: () => _showRecentChangesAlert(),
                   child: Text(
                     'Recent Changes',
                     style: TextStyle(color: Colors.white70),
@@ -153,80 +153,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   )),
               TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
-                  onPressed: () => showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          backgroundColor: Colors.grey.shade900,
-                          title: const Text('Hi, I\'m Seth! 🍵',
-                              style: TextStyle(color: Colors.white)),
-                          content: SizedBox(
-                            height: 350,
-                            child: SingleChildScrollView(
-                              child: RichText(
-                                  textScaleFactor: 1.15,
-                                  text: TextSpan(
-                                      style: TextStyle(color: Colors.white),
-                                      text:
-                                          "I'm a freelancer and hobbyist who's passionate towards creating various apps, software, digital art, and graphic designs. I created this app for my own personal use to help me lucid dream better and just because I thought it'd be nice to record my dreams.\n\nAlong the way I thought it'd be nice to share my app with others, so here we are. I'll always try to focus on efficiency and simplicity so hopefully this app never becomes slow. Nor will there ever be ads.\n\nIf you'd like to see more of my work or contact me for work - as I am a freelancer - you can check out my personal website from the ",
-                                      children: [
-                                        TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                            text: "Visit My Website"),
-                                        TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.normal),
-                                            text:
-                                                " button.\n\nOr if you'd like to show some support, you can "),
-                                        TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontStyle: FontStyle.italic),
-                                            text: "buy me a "),
-                                        TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                fontStyle: FontStyle.italic),
-                                            text: "coffee"),
-                                        TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontStyle: FontStyle.italic),
-                                            text: " tea"),
-                                        TextSpan(
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                            text: " from the "),
-                                        TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                            text: "Support Me"),
-                                        TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.normal),
-                                            text:
-                                                " button. I'd very much appreciate it! This app is completely free so I don't really make any money from it.\n\nAnyways, hope you enjoy this app and have great dreams!\nThank you for installing it. 🙂")
-                                      ])),
-                            ),
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text('OK',
-                                  style: TextStyle(color: Colors.white)),
-                              style: ButtonStyle(
-                                  splashFactory: NoSplash.splashFactory),
-                            ),
-                          ],
-                        ),
-                      ), //
+                  onPressed: () => _showAboutMeAlert(), //
                   child: Text(
                     'About Me',
                     style: TextStyle(color: Colors.white70),
@@ -236,6 +163,120 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ),
     );
+  }
+
+  _showRecentChangesAlert() {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              backgroundColor: Colors.grey.shade900,
+              title: const Text('Recent Changes',
+                  style: TextStyle(color: Colors.white)),
+              content: SizedBox(
+                height: 350,
+                child: SingleChildScrollView(
+                  child: RichText(
+                      textScaleFactor: 1.15,
+                      text: TextSpan(
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                          text: "What's new in v4.0.0\n",
+                          children: [
+                            TextSpan(
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal),
+                                text:
+                                    "\nComplete app rewrite from plain old Java to the Flutter framework. This update hopes to bring a more efficient and cleaner design to the app.\n-Revamped entire overall appearance of the app.\n- Added more dream types (e.g. continuous dream for sequel dreams, recurring dreams that repeat, etc)\n- Added being able to record the feel of a dream (e.g. terrible, fantastic, etc)\n- Added different kinds of graphs (Feel pie chart, Type pie chart, and a Numerical counts chart)\n- Added more date ranges for charts.\n- Added dream titles\n- App now relies entirely on a cloud database for cloud functionality (Powered by Google Firebase). No matter what phone, you should be able to access your dream journal from your gmail account. Also supports offline functionality."),
+                          ])),
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child:
+                      const Text('OK', style: TextStyle(color: Colors.white)),
+                  style: ButtonStyle(splashFactory: NoSplash.splashFactory),
+                ),
+              ],
+            ));
+  }
+
+  _showAboutMeAlert() {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              backgroundColor: Colors.grey.shade900,
+              title: const Text('Hi, I\'m Seth! 🍵',
+                  style: TextStyle(color: Colors.white)),
+              content: SizedBox(
+                height: 350,
+                child: SingleChildScrollView(
+                  child: RichText(
+                      textScaleFactor: 1.15,
+                      text: TextSpan(
+                          style: TextStyle(color: Colors.white),
+                          text:
+                              "I'm a freelancer and hobbyist who's passionate towards creating various apps, software, digital art, and graphic designs. I created this app for my own personal use to help me lucid dream better and just because I thought it'd be nice to record my dreams.\n\nAlong the way I thought it'd be nice to share my app with others, so here we are. I'll always try to focus on efficiency and simplicity so hopefully this app never becomes slow. Nor will there ever be ads.\n\nIf you'd like to see more of my work or contact me for work - as I am a freelancer - you can check out my personal website from the ",
+                          children: [
+                            TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                text: "Visit My Website"),
+                            TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal),
+                                text:
+                                    " button.\n\nOr if you'd like to show some support, you can "),
+                            TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic),
+                                text: "buy me a "),
+                            TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    decoration: TextDecoration.lineThrough,
+                                    fontStyle: FontStyle.italic),
+                                text: "coffee"),
+                            TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic),
+                                text: " tea"),
+                            TextSpan(
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                text: " from the "),
+                            TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                text: "Support Me"),
+                            TextSpan(
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal),
+                                text:
+                                    " button. I'd very much appreciate it! This app is completely free so I don't really make any money from it.\n\nAnyways, hope you enjoy this app and have great dreams!\nThank you for installing it. 🙂")
+                          ])),
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child:
+                      const Text('OK', style: TextStyle(color: Colors.white)),
+                  style: ButtonStyle(splashFactory: NoSplash.splashFactory),
+                ),
+              ],
+            ));
   }
 
   _launchPersonalSiteURL() async {
