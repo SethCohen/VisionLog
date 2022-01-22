@@ -65,15 +65,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish theme editor
                   child: Text(
-                    'Appearance',
-                    style: TextStyle(color: Colors.white70),
+                    'Appearance (WIP)',
+                    style: TextStyle(color: Colors.white38),
                   )),
               TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish account manager
                   child: Text(
-                    'Manage Account',
-                    style: TextStyle(color: Colors.white70),
+                    'Manage Account (WIP)',
+                    style: TextStyle(color: Colors.white38),
                   )),
               Text('About',
                   textScaleFactor: 1.05,
