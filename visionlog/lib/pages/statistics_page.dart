@@ -13,6 +13,8 @@ class StatisticsPage extends StatefulWidget {
 class _StatisticsPageState extends State<StatisticsPage> {
   DateTime _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
   dynamic _chart = FeelPieChart(DateTime.fromMillisecondsSinceEpoch(0));
+  String _chartDropdownValue = 'Feel';
+  String _dateDropdownValue = 'All-Time';
 
   @override
   void initState() {
@@ -25,62 +27,100 @@ class _StatisticsPageState extends State<StatisticsPage> {
         appBar: AppBar(
           title: Text('Statistics'),
           actions: [
-            PopupMenuButton(
-              onSelected: (value) {
-                setState(() {
-                  _chart = value as dynamic;
-                });
-              },
-              icon: Icon(Icons.pie_chart),
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                  value: FeelPieChart(_dateSelected),
-                  child: Text('Feel'),
-                ),
-                PopupMenuItem(
-                  value: TypePieChart(_dateSelected),
-                  child: Text('Type'),
-                ),
-                PopupMenuItem(
-                  value: NumericalChart(_dateSelected),
-                  child: Text('Numerical'),
-                ),
-              ],
+            DropdownButtonHideUnderline(
+              child: DropdownButton(
+                alignment: Alignment.centerRight,
+                isDense: true,
+                dropdownColor: Colors.black,
+                value: _chartDropdownValue,
+                iconEnabledColor: Colors.white,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _chartDropdownValue = newValue!;
+                    switch (newValue) {
+                      case 'Feel':
+                        _chart = FeelPieChart(_dateSelected);
+                        break;
+                      case 'Type':
+                        _chart = TypePieChart(_dateSelected);
+                        break;
+                      case 'Numerical':
+                        _chart = NumericalChart(_dateSelected);
+                        break;
+                      default:
+                        _chart = FeelPieChart(_dateSelected);
+                    }
+                  });
+                },
+                icon: Icon(Icons.pie_chart),
+                items: <String>[
+                  'Feel',
+                  'Type',
+                  'Numerical',
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
             ),
-            PopupMenuButton(
-              onSelected: (value) {
-                setState(() {
-                  _dateSelected = value as DateTime;
-                });
-              },
-              icon: Icon(Icons.date_range),
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                PopupMenuItem(
-                  value: DateTime.fromMillisecondsSinceEpoch(0),
-                  child: Text('All-Time'),
-                ),
-                PopupMenuItem(
-                  value: DateTime.now().subtract(const Duration(days: 365)),
-                  child: Text('Yearly'),
-                ),
-                PopupMenuItem(
-                  value: DateTime.now().subtract(const Duration(days: 180)),
-                  child: Text('Semi Yearly'),
-                ),
-                PopupMenuItem(
-                  value: DateTime.now().subtract(const Duration(days: 90)),
-                  child: Text('Quarterly'),
-                ),
-                PopupMenuItem(
-                  value: DateTime.now().subtract(const Duration(days: 30)),
-                  child: Text('Monthly'),
-                ),
-                PopupMenuItem(
-                  value: DateTime.now().subtract(const Duration(days: 7)),
-                  child: Text('Weekly'),
-                ),
-              ],
+            SizedBox(
+              width: 10.0,
             ),
+            DropdownButtonHideUnderline(
+              child: DropdownButton(
+                alignment: Alignment.centerRight,
+                isDense: true,
+                dropdownColor: Colors.black,
+                iconEnabledColor: Colors.white,
+                value: _dateDropdownValue,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _dateDropdownValue = newValue!;
+                    switch (newValue) {
+                      case 'All-Time':
+                        _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
+                        break;
+                      case 'Yearly':
+                        _dateSelected =
+                            DateTime.now().subtract(const Duration(days: 365));
+                        break;
+                      case 'Semi Yearly':
+                        _dateSelected =
+                            DateTime.now().subtract(const Duration(days: 180));
+                        break;
+                      case 'Quarterly':
+                        _dateSelected =
+                            DateTime.now().subtract(const Duration(days: 90));
+                        break;
+                      case 'Monthly':
+                        _dateSelected =
+                            DateTime.now().subtract(const Duration(days: 30));
+                        break;
+                      case 'Weekly':
+                        _dateSelected =
+                            DateTime.now().subtract(const Duration(days: 7));
+                        break;
+                    }
+                  });
+                },
+                icon: Icon(Icons.date_range),
+                items: <String>[
+                  'All-Time',
+                  'Yearly',
+                  'Semi Yearly',
+                  'Quarterly',
+                  'Monthly',
+                  'Weekly'
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            )
           ],
         ),
         body: Padding(
