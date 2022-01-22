@@ -11,8 +11,6 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-  DateTime _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
-  dynamic _chart = FeelPieChart(DateTime.fromMillisecondsSinceEpoch(0));
   String _chartDropdownValue = 'Feel';
   String _dateDropdownValue = 'All-Time';
 
@@ -37,19 +35,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 onChanged: (String? newValue) {
                   setState(() {
                     _chartDropdownValue = newValue!;
-                    switch (newValue) {
-                      case 'Feel':
-                        _chart = FeelPieChart(_dateSelected);
-                        break;
-                      case 'Type':
-                        _chart = TypePieChart(_dateSelected);
-                        break;
-                      case 'Numerical':
-                        _chart = NumericalChart(_dateSelected);
-                        break;
-                      default:
-                        _chart = FeelPieChart(_dateSelected);
-                    }
+
                   });
                 },
                 icon: Icon(Icons.pie_chart),
@@ -78,36 +64,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 onChanged: (String? newValue) {
                   setState(() {
                     _dateDropdownValue = newValue!;
-                    switch (newValue) {
-                      case 'All-Time':
-                        _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
-                        _chart = FeelPieChart(_dateSelected);
-                        break;
-                      case 'Yearly':
-                        _dateSelected =
-                            DateTime.now().subtract(const Duration(days: 365));
-                        _chart = FeelPieChart(_dateSelected);
-                        break;
-                      case 'Semi Yearly':
-                        _dateSelected =
-                            DateTime.now().subtract(const Duration(days: 180));
-                        _chart = FeelPieChart(_dateSelected);
-                        break;
-                      case 'Quarterly':
-                        _dateSelected =
-                            DateTime.now().subtract(const Duration(days: 90));
-                        _chart = FeelPieChart(_dateSelected);
-                        break;
-                      case 'Monthly':
-                        _dateSelected =
-                            DateTime.now().subtract(const Duration(days: 30));
-                        break;
-                      case 'Weekly':
-                        _dateSelected =
-                            DateTime.now().subtract(const Duration(days: 7));
-                        _chart = FeelPieChart(_dateSelected);
-                        break;
-                    }
                   });
                 },
                 icon: Icon(Icons.date_range),
@@ -134,10 +90,56 @@ class _StatisticsPageState extends State<StatisticsPage> {
             children: [
               SizedBox(
                 height: 300.0,
-                child: _chart,
+                child: _buildChart(_chartDropdownValue, _dateDropdownValue),
               )
             ],
           ),
         ));
   }
+
+  _buildChart(String selectedChart, String selectedDate) {
+    DateTime _dateSelected;
+
+    switch (selectedDate) {
+      case 'All-Time':
+        _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
+        break;
+      case 'Yearly':
+        _dateSelected =
+            DateTime.now().subtract(const Duration(days: 365));
+        break;
+      case 'Semi Yearly':
+        _dateSelected =
+            DateTime.now().subtract(const Duration(days: 180));
+        break;
+      case 'Quarterly':
+        _dateSelected =
+            DateTime.now().subtract(const Duration(days: 90));
+        break;
+      case 'Monthly':
+        _dateSelected =
+            DateTime.now().subtract(const Duration(days: 30));
+        break;
+      case 'Weekly':
+        _dateSelected =
+            DateTime.now().subtract(const Duration(days: 7));
+        break;
+      default:
+        _dateSelected = DateTime.fromMillisecondsSinceEpoch(0);
+    }
+
+
+    switch (selectedChart) {
+      case 'Feel':
+        return FeelPieChart(_dateSelected);
+      case 'Type':
+        return TypePieChart(_dateSelected);
+      case 'Numerical':
+        return NumericalChart(_dateSelected);
+      default:
+        return FeelPieChart(_dateSelected);
+    }
+
+  }
 }
+
