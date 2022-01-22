@@ -12,6 +12,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final ScrollController _controllerOne = ScrollController();
+
   final user = FirebaseAuth.instance.currentUser!;
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
@@ -43,27 +45,31 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(48.0, 8.0, 8.0, 8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: Scrollbar(
+          controller: _controllerOne,
+          child: ListView(
+            controller: _controllerOne,
             children: [
               Text('General',
                   textScaleFactor: 1.05,
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish export database
                   child: Text(
                     'Export database',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish theme editor
                   child: Text(
                     'Appearance',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish account manager
                   child: Text(
                     'Manage Account',
@@ -74,30 +80,36 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
-                  onPressed: _launchPrivacyPolicyURL,  // TODO change privacy policy url to personal website
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  onPressed: _launchPrivacyPolicyURL,
+                  // TODO change privacy policy url to personal website
                   child: Text(
                     'Privacy Policy',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchGithubURL,
                   child: Text(
                     'Source Code',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchReviewURL,
                   child: Text(
                     'Rate This App',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO changelog
                   child: Text(
                     'Recent Changes',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null,
                   child: Text(
                     'Version: ${_packageInfo.version}',
@@ -108,12 +120,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchReportIssueGithubURL,
                   child: Text(
                     'Report An Issue Via Github',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchSendEmail,
                   child: Text(
                     'Report An Issue Via Email',
@@ -124,18 +138,21 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish IAP
                   child: Text(
                     'Support Me',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchPersonalSiteURL,
                   child: Text(
                     'Visit My Website',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
+                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: () => showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
