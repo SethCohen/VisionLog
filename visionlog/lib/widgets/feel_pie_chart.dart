@@ -47,7 +47,7 @@ class FeelPieChart extends StatelessWidget {
             outsideLabelStyleSpec: charts.TextStyleSpec(
                 color: charts.MaterialPalette.white, fontSize: 15),
             insideLabelStyleSpec: charts.TextStyleSpec(
-                color: charts.MaterialPalette.white, fontSize: 15),
+                color: charts.MaterialPalette.black, fontSize: 15),
           ),
         ]));
   }
@@ -97,15 +97,15 @@ class FeelPieChart extends StatelessWidget {
 
       return [
         FeelCount("Terrible", terribleCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF882255))),
+            charts.ColorUtil.fromDartColor(Color(0xffff9595))),
         FeelCount(
-            "Bad", badCount, charts.ColorUtil.fromDartColor(Color(0xFFDDCC77))),
+            "Bad", badCount, charts.ColorUtil.fromDartColor(Color(0xffffdd99))),
         FeelCount("Average", averageCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF88CCEE))),
+            charts.ColorUtil.fromDartColor(Color(0xffbeffb0))),
         FeelCount("Okay", okayCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF117733))),
+            charts.ColorUtil.fromDartColor(Color(0xff9ecdff))),
         FeelCount("Fantastic", fantasticCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF3A27A8))),
+            charts.ColorUtil.fromDartColor(Color(0xffa49eff))),
       ];
     }
   }

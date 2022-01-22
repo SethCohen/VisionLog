@@ -47,7 +47,7 @@ class TypePieChart extends StatelessWidget {
             outsideLabelStyleSpec: charts.TextStyleSpec(
                 color: charts.MaterialPalette.white, fontSize: 15),
             insideLabelStyleSpec: charts.TextStyleSpec(
-                color: charts.MaterialPalette.white, fontSize: 15),
+                color: charts.MaterialPalette.black, fontSize: 15),
           ),
         ]));
   }
@@ -73,13 +73,13 @@ class TypePieChart extends StatelessWidget {
 
       return [
         TypeCount("Lucid", lucidCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF6200ff))),
+            charts.ColorUtil.fromDartColor(Color(0xffac95ff))),
         TypeCount("Nightmare", nightmareCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF990e0e))),
+            charts.ColorUtil.fromDartColor(Color(0xffff9595))),
         TypeCount("Recurring", recurringCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF88CCEE))),
+            charts.ColorUtil.fromDartColor(Color(0xff95c5ff))),
         TypeCount("Continuous", continuousCount,
-            charts.ColorUtil.fromDartColor(Color(0xFF117733))),
+            charts.ColorUtil.fromDartColor(Color(0xff95ffa7))),
       ];
     }
   }
