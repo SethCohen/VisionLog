@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         title: title,
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
-          scaffoldBackgroundColor: const Color(0xFF15151C),
+          scaffoldBackgroundColor: const Color(0xFF000000),
           disabledColor: Colors.white70,
           textTheme: TextTheme(
             subtitle1: TextStyle(color: Colors.white70),
