@@ -14,21 +14,19 @@ class NumericalChart extends StatelessWidget {
     var docs = context
         .watch<Documents>()
         .documents!
-        .map((dream) =>
-        Dream.fromMap(dream.data() as Map<String, dynamic>,
+        .map((dream) => Dream.fromMap(dream.data() as Map<String, dynamic>,
             reference: dream.reference))
         .where((dream) => dream.datetime.isAfter(dateSelected))
         .toList();
 
     return Container(
       child: ListView(
-          children: _buildData(docs)
-      ),
+          padding: const EdgeInsets.all(16.0), children: _buildData(docs)),
     );
   }
 
   _buildData(List<Dream>? docs) {
-    double terribleCount = 0,
+    int terribleCount = 0,
         badCount = 0,
         averageCount = 0,
         okayCount = 0,
@@ -36,7 +34,8 @@ class NumericalChart extends StatelessWidget {
         lucidCount = 0,
         nightmareCount = 0,
         recurringCount = 0,
-        continuousCount = 0;
+        continuousCount = 0,
+        untaggedCount = 0;
 
     if (docs != null) {
       docs.forEach((Dream dream) {
@@ -80,20 +79,139 @@ class NumericalChart extends StatelessWidget {
           recurringCount++;
         } else if (dream.isContinuous) {
           continuousCount++;
+        } else {
+          untaggedCount++;
         }
       });
 
       return [
-        Text('Terrible: $terribleCount'),
-        Text('Bad: $badCount'),
-        Text('Average: $averageCount'),
-        Text('Okay: $okayCount'),
-        Text('Fantastic: $fantasticCount'),
-        Text('Lucid: $lucidCount'),
-        Text('Nightmare: $nightmareCount'),
-        Text('Recurring: $recurringCount'),
-        Text('Continuous: $continuousCount'),
-        Text('Total Amount of Dreams: ${docs.length}'),
+        RichText(
+          text: TextSpan(
+            text: 'Total Amount of Dreams: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '${docs.length}',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        Divider(),
+        Text('Dream Feel Count Distribution:',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tTerrible: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$terribleCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tBad: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$badCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tAverage: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$averageCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tOkay: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$okayCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tFantastic: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$fantasticCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        Divider(),
+        Text('Dream Type Count Distribution:',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tLucid: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$lucidCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tNightmare: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$nightmareCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tRecurring: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$recurringCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tContinuous: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$continuousCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+        RichText(
+          text: TextSpan(
+            text: '\t\t\tUntagged: ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: '$untaggedCount',
+                  style: TextStyle(fontWeight: FontWeight.normal)),
+            ],
+          ),
+        )
       ];
     }
   }
