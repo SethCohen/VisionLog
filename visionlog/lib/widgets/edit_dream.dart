@@ -97,8 +97,8 @@ class _EditDreamState extends State<EditDream> {
   Future<void> editDream(dream) {
     return dream.reference!
         .update({
-          'timestamp': DateTime(_selectedDate!.year, _selectedDate!.month,
-              _selectedDate!.day, _selectedTime!.hour, _selectedTime!.minute),
+          'timestamp': DateTime(_selectedDate.year, _selectedDate.month,
+              _selectedDate.day, _selectedTime.hour, _selectedTime.minute),
           'feel': _feel,
           'title': _title,
           'message': _message,
@@ -144,7 +144,7 @@ class _EditDreamState extends State<EditDream> {
                         primary: Colors.white60,
                       ),
                       child: Text(
-                        _date!,
+                        _date,
                         textScaleFactor: 1.25,
                       ),
                     ),
@@ -161,7 +161,7 @@ class _EditDreamState extends State<EditDream> {
                         primary: Colors.white60,
                       ),
                       child: Text(
-                        _time!,
+                        _time,
                         textScaleFactor: 1.25,
                       ),
                     ),
@@ -196,12 +196,12 @@ class _EditDreamState extends State<EditDream> {
                         setState(() {
                           //  Prevents more than one button being selected
                           for (int buttonIndex = 0;
-                              buttonIndex < feelSelected!.length;
+                              buttonIndex < feelSelected.length;
                               buttonIndex++) {
                             if (buttonIndex == index) {
-                              feelSelected![buttonIndex] = true;
+                              feelSelected[buttonIndex] = true;
                             } else {
-                              feelSelected![buttonIndex] = false;
+                              feelSelected[buttonIndex] = false;
                             }
                           }
                         });
@@ -243,7 +243,7 @@ class _EditDreamState extends State<EditDream> {
                       borderColor: Colors.transparent,
                       fillColor: Colors.transparent,
                       color: Colors.white10,
-                      isSelected: feelSelected!,
+                      isSelected: feelSelected,
                       selectedColor: _feelColours[_feel],
                     ),
                   ],
@@ -262,7 +262,7 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isLucidSwitched!,
+                        value: isLucidSwitched,
                         onChanged: (value) {
                           setState(() {
                             isLucidSwitched = value;
@@ -289,16 +289,16 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isNightmareSwitched!,
+                        value: isNightmareSwitched,
                         onChanged: (value) {
                           setState(() {
                             isNightmareSwitched = value;
                             _nightmare = value;
-                            feelSelected![0] = true;
-                            feelSelected![1] = false;
-                            feelSelected![2] = false;
-                            feelSelected![3] = false;
-                            feelSelected![4] = false;
+                            feelSelected[0] = true;
+                            feelSelected[1] = false;
+                            feelSelected[2] = false;
+                            feelSelected[3] = false;
+                            feelSelected[4] = false;
                             _feel = 'terrible';
                           });
                         },
@@ -322,7 +322,7 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isRecurringSwitched!,
+                        value: isRecurringSwitched,
                         onChanged: (value) {
                           setState(() {
                             isRecurringSwitched = value;
@@ -349,7 +349,7 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isContinuousSwitched!,
+                        value: isContinuousSwitched,
                         onChanged: (value) {
                           setState(() {
                             isContinuousSwitched = value;
@@ -439,27 +439,27 @@ class _EditDreamState extends State<EditDream> {
     //  Creates DateTimePickerDialog
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate!,
+      initialDate: _selectedDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
     if (picked != null && picked != _selectedDate)
       setState(() {
         _selectedDate = picked;
-        _date = DateFormat.yMd().format(_selectedDate!);
+        _date = DateFormat.yMd().format(_selectedDate);
       });
   }
 
   _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: _selectedTime!,
+      initialTime: _selectedTime,
     );
     if (picked != null && picked != _selectedTime)
       setState(() {
         _selectedTime = picked;
 
-        _time = _selectedTime!.format(context);
+        _time = _selectedTime.format(context);
       });
   }
 }
