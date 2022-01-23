@@ -4,6 +4,7 @@ import 'package:visionlog/pages/home_page.dart';
 import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'package:visionlog/provider/google_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:visionlog/widgets/dream.dart';
 import 'package:visionlog/widgets/edit_dream.dart';
 
 import 'widgets/add_dream.dart';
@@ -13,9 +14,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => Documents())
-  ], child: MyApp()));
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => Documents())],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,16 +44,22 @@ class MyApp extends StatelessWidget {
             elevation: 3,
           ),
           popupMenuTheme: PopupMenuThemeData(
-            color: const Color(0xFF15151C),
-            textStyle: TextStyle(color: Colors.white70)
-          ),
+              color: const Color(0xFF15151C),
+              textStyle: TextStyle(color: Colors.white70)),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: HomePage(),
         routes: <String, WidgetBuilder>{
           '/addDream': (BuildContext context) => AddDream(),
-          '/editDream': (BuildContext context) => EditDream(),
           '/dreamEntree': (BuildContext context) => DreamEntree(),
+        },
+        onGenerateRoute: (RouteSettings settings) {
+          print('build route for ${settings.name}');
+          var routes = <String, WidgetBuilder>{
+            "/editDream": (ctx) => EditDream(settings.arguments as Dream),
+          };
+          WidgetBuilder? builder = routes[settings.name];
+          return MaterialPageRoute(builder: (ctx) => builder!(ctx));
         },
       ));
 }

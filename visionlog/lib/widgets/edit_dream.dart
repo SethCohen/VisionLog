@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import 'dream.dart';
 
 class EditDream extends StatefulWidget {
-  EditDream({Key? key}) : super(key: key);
+  EditDream(this.arguments, {Key? key}) : super(key: key);
+
+  final Dream arguments;
 
   @override
   _EditDreamState createState() => _EditDreamState();
@@ -30,16 +32,73 @@ class _EditDreamState extends State<EditDream> {
   bool _recurring = false;
   bool _continuous = false;
 
+  bool isLucidSwitched = false;
+  bool isNightmareSwitched = false;
+  bool isRecurringSwitched = false;
+  bool isContinuousSwitched = false;
+
+  //  Initializes which Feel ToggleButton is selected by default.
+  List<bool> feelSelected = [false, false, true, false, false];
+
+  TextEditingController _titleTextEditingController = TextEditingController();
+  TextEditingController _messageTextEditingController = TextEditingController();
+
+
+  Map _feelColours = {
+    'terrible': Color(0xffff9595),
+    'bad': Color(0xffffdd99),
+    'average': Color(0xffbeffb0),
+    'okay': Color(0xff9ecdff),
+    'fantastic': Color(0xffa49eff)
+  };
+
   @override
   void initState() {
     super.initState();
+    print(widget.arguments);
+
+    _selectedDate = widget.arguments.datetime;
+    _selectedTime = TimeOfDay.fromDateTime(widget.arguments.datetime);
+
+    _date = DateFormat.yMd().format(widget.arguments.datetime);
+    _time = DateFormat.jm().format(DateTime(
+        widget.arguments.datetime.year,
+        widget.arguments.datetime.month,
+        widget.arguments.datetime.day,
+        widget.arguments.datetime.hour,
+        widget.arguments.datetime.minute));
+    _title = widget.arguments.title!;
+    _message = widget.arguments.message!;
+    _feel = widget.arguments.feel;
+    _lucid = widget.arguments.isLucid;
+    _nightmare = widget.arguments.isNightmare;
+    _recurring = widget.arguments.isRecurring;
+    _continuous = widget.arguments.isContinuous;
+
+    isLucidSwitched = widget.arguments.isLucid;
+    isNightmareSwitched = widget.arguments.isNightmare;
+    isRecurringSwitched = widget.arguments.isRecurring;
+    isContinuousSwitched = widget.arguments.isContinuous;
+
+    //  Initializes which Feel ToggleButton is selected by default.
+    feelSelected = [
+      widget.arguments.feel == 'terrible' ? true : false,
+      widget.arguments.feel == 'bad' ? true : false,
+      widget.arguments.feel == 'average' ? true : false,
+      widget.arguments.feel == 'okay' ? true : false,
+      widget.arguments.feel == 'fantastic' ? true : false
+    ];
+
+    _titleTextEditingController = TextEditingController(text: _title);
+    _messageTextEditingController = TextEditingController(text: _message);
+
   }
 
   Future<void> editDream(dream) {
     return dream.reference!
         .update({
-          'timestamp': DateTime(_selectedDate.year, _selectedDate.month,
-              _selectedDate.day, _selectedTime.hour, _selectedTime.minute),
+          'timestamp': DateTime(_selectedDate!.year, _selectedDate!.month,
+              _selectedDate!.day, _selectedTime!.hour, _selectedTime!.minute),
           'feel': _feel,
           'title': _title,
           'message': _message,
@@ -54,40 +113,7 @@ class _EditDreamState extends State<EditDream> {
 
   @override
   Widget build(BuildContext context) {
-    final dream = ModalRoute.of(context)!.settings.arguments as Dream;
-    _selectedDate = dream.datetime;
-    _selectedTime = TimeOfDay.fromDateTime(dream.datetime);
-
-    bool isLucidSwitched = dream.isLucid;
-    bool isNightmareSwitched = dream.isNightmare;
-    bool isRecurringSwitched = dream.isRecurring;
-    bool isContinuousSwitched = dream.isContinuous;
-
-    _date = DateFormat.yMd().format(_selectedDate);
-    _time = DateFormat.jm().format(DateTime(
-        _selectedDate.year,
-        _selectedDate.month,
-        _selectedDate.day,
-        _selectedTime.hour,
-        _selectedTime.minute));
-    _title = dream.title!;
-    _message = dream.message!;
-    _feel = dream.feel;
-    _lucid = dream.isLucid;
-    _nightmare = dream.isNightmare;
-    _recurring = dream.isRecurring;
-    _continuous = dream.isContinuous;
-
-    List<bool> feelSelected = [
-      dream.feel == 'terrible' ? true : false,
-      dream.feel == 'bad' ? true : false,
-      dream.feel == 'average' ? true : false,
-      dream.feel == 'okay' ? true : false,
-      dream.feel == 'fantastic' ? true : false
-    ];
-
-    TextEditingController _titleTextEditingController = TextEditingController(text: _title);
-    TextEditingController _messageTextEditingController = TextEditingController(text: _message);
+    Dream dream = widget.arguments;
 
     return SafeArea(
       child: Scaffold(
@@ -118,7 +144,7 @@ class _EditDreamState extends State<EditDream> {
                         primary: Colors.white60,
                       ),
                       child: Text(
-                        _date,
+                        _date!,
                         textScaleFactor: 1.25,
                       ),
                     ),
@@ -135,7 +161,7 @@ class _EditDreamState extends State<EditDream> {
                         primary: Colors.white60,
                       ),
                       child: Text(
-                        _time,
+                        _time!,
                         textScaleFactor: 1.25,
                       ),
                     ),
@@ -170,12 +196,12 @@ class _EditDreamState extends State<EditDream> {
                         setState(() {
                           //  Prevents more than one button being selected
                           for (int buttonIndex = 0;
-                              buttonIndex < feelSelected.length;
+                              buttonIndex < feelSelected!.length;
                               buttonIndex++) {
                             if (buttonIndex == index) {
-                              feelSelected[buttonIndex] = true;
+                              feelSelected![buttonIndex] = true;
                             } else {
-                              feelSelected[buttonIndex] = false;
+                              feelSelected![buttonIndex] = false;
                             }
                           }
                         });
@@ -217,7 +243,8 @@ class _EditDreamState extends State<EditDream> {
                       borderColor: Colors.transparent,
                       fillColor: Colors.transparent,
                       color: Colors.white10,
-                      isSelected: feelSelected,
+                      isSelected: feelSelected!,
+                      selectedColor: _feelColours[_feel],
                     ),
                   ],
                 ),
@@ -235,7 +262,7 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isLucidSwitched,
+                        value: isLucidSwitched!,
                         onChanged: (value) {
                           setState(() {
                             isLucidSwitched = value;
@@ -262,16 +289,16 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isNightmareSwitched,
+                        value: isNightmareSwitched!,
                         onChanged: (value) {
                           setState(() {
                             isNightmareSwitched = value;
                             _nightmare = value;
-                            feelSelected[0] = true;
-                            feelSelected[1] = false;
-                            feelSelected[2] = false;
-                            feelSelected[3] = false;
-                            feelSelected[4] = false;
+                            feelSelected![0] = true;
+                            feelSelected![1] = false;
+                            feelSelected![2] = false;
+                            feelSelected![3] = false;
+                            feelSelected![4] = false;
                             _feel = 'terrible';
                           });
                         },
@@ -295,7 +322,7 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isRecurringSwitched,
+                        value: isRecurringSwitched!,
                         onChanged: (value) {
                           setState(() {
                             isRecurringSwitched = value;
@@ -322,7 +349,7 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                       Switch(
-                        value: isContinuousSwitched,
+                        value: isContinuousSwitched!,
                         onChanged: (value) {
                           setState(() {
                             isContinuousSwitched = value;
@@ -412,27 +439,27 @@ class _EditDreamState extends State<EditDream> {
     //  Creates DateTimePickerDialog
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate,
+      initialDate: _selectedDate!,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
     if (picked != null && picked != _selectedDate)
       setState(() {
         _selectedDate = picked;
-        _date = DateFormat.yMd().format(_selectedDate);
+        _date = DateFormat.yMd().format(_selectedDate!);
       });
   }
 
   _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: _selectedTime,
+      initialTime: _selectedTime!,
     );
     if (picked != null && picked != _selectedTime)
       setState(() {
         _selectedTime = picked;
 
-        _time = _selectedTime.format(context);
+        _time = _selectedTime!.format(context);
       });
   }
 }
