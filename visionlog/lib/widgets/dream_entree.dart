@@ -17,15 +17,15 @@ class _DreamEntreeState extends State<DreamEntree> {
 
     Map _feel = {
       'terrible': Icon(Icons.sentiment_very_dissatisfied,
-          size: 36.0, color: Colors.deepPurple),
+          size: 36.0, color: Color(0xffff9595)),
       'bad': Icon(Icons.sentiment_dissatisfied,
-          size: 36.0, color: Colors.deepPurple),
+          size: 36.0, color: Color(0xffffdd99)),
       'average':
-          Icon(Icons.sentiment_neutral, size: 36.0, color: Colors.deepPurple),
+          Icon(Icons.sentiment_neutral, size: 36.0, color: Color(0xffbeffb0)),
       'okay':
-          Icon(Icons.sentiment_satisfied, size: 36.0, color: Colors.deepPurple),
+          Icon(Icons.sentiment_satisfied, size: 36.0, color: Color(0xff9ecdff)),
       'fantastic': Icon(Icons.sentiment_very_satisfied,
-          size: 36.0, color: Colors.deepPurple)
+          size: 36.0, color: Color(0xffa49eff))
     };
 
     return SafeArea(
