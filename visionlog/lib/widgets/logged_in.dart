@@ -26,7 +26,7 @@ class _LoggedInState extends State<LoggedIn> {
     return SafeArea(
       child: Scaffold(
         body: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection("dreams").where('user_uid', isEqualTo: user.uid).snapshots(),
+            stream: FirebaseFirestore.instance.collection("dreams").where('user_uid', isEqualTo: user.uid).orderBy('timestamp', descending: true).snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 WidgetsBinding.instance?.addPostFrameCallback((_) {
