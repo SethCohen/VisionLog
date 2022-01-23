@@ -42,6 +42,14 @@ class _AddDreamState extends State<AddDream> {
   TextEditingController _titleTextEditingController = TextEditingController();
   TextEditingController _messageTextEditingController = TextEditingController();
 
+  Map _feelColours = {
+    'terrible': Color(0xffff9595),
+    'bad': Color(0xffffdd99),
+    'average': Color(0xffbeffb0),
+    'okay': Color(0xff9ecdff),
+    'fantastic': Color(0xffa49eff)
+  };
+
   @override
   void initState() {
     super.initState();
@@ -198,6 +206,7 @@ class _AddDreamState extends State<AddDream> {
                       fillColor: Colors.transparent,
                       color: Colors.white10,
                       isSelected: feelSelected,
+                      selectedColor: _feelColours[_feel],
                     ),
                   ],
                 ),
