@@ -1,6 +1,15 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:csv/csv.dart';
+import 'package:ext_storage/ext_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/src/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:visionlog/provider/dream_documents_provider.dart';
+import 'package:visionlog/widgets/dream.dart';
 import 'package:visionlog/widgets/sign_out.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -56,7 +65,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
-                  onPressed: null, // TODO finish export database
+                  onPressed: () {
+                    _exportDatabase(context);
+                  },
                   child: Text(
                     'Export database',
                     style: TextStyle(color: Colors.white70),
@@ -333,5 +344,54 @@ class _SettingsPageState extends State<SettingsPage> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  _exportDatabase(BuildContext context) async {
+    var docs = Provider.of<Documents>(context, listen: false).documents;
+    var dreams = docs!.map((DocumentSnapshot document) => Dream.fromMap(
+        document.data() as Map<String, dynamic>,
+        reference: document.reference)).toList();
+
+    List<List<dynamic>> rows = [];
+    List<dynamic> row = [];
+    row.add('title');
+    row.add('message');
+    row.add('feel');
+    row.add('datetime');
+    row.add('is_lucid');
+    row.add('is_nightmare');
+    row.add('is_recurring');
+    row.add('is_continuous');
+    rows.add(row);
+    dreams.forEach((dream) {
+      List<dynamic> row = [];
+      row.add(dream.title);
+      row.add(dream.message);
+      row.add(dream.feel);
+      row.add(dream.datetime);
+      row.add(dream.isLucid);
+      row.add(dream.isNightmare);
+      row.add(dream.isRecurring);
+      row.add(dream.isContinuous);
+      rows.add(row);
+    });
+
+    String csv = const ListToCsvConverter().convert(rows);
+
+    String? dir = await ExtStorage.getExternalStoragePublicDirectory(
+        ExtStorage.DIRECTORY_DOWNLOADS);
+    String file = "$dir";
+
+    File f = File("$file/VisionLog-${DateFormat.yMd().format(DateTime.now()).replaceAll('/', '-')}.csv");
+    // print('Saved to $f');
+
+    f.writeAsString(csv);
+
+    final snackBar = SnackBar(
+      content: Text('Saved To $f'),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
   }
 }
