@@ -93,7 +93,6 @@ class _SettingsPageState extends State<SettingsPage> {
               TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchPrivacyPolicyURL,
-                  // TODO change privacy policy url to personal website
                   child: Text(
                     'Privacy Policy',
                     style: TextStyle(color: Colors.white70),
@@ -338,7 +337,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   _launchPrivacyPolicyURL() async {
-    const url = 'https://sites.google.com/view/sethcohen/home';
+    const url = 'https://sethdev.ca/portfolio/programming/visionlog/privacy-policy/';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
