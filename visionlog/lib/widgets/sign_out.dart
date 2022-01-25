@@ -19,7 +19,7 @@ class SignOut extends StatelessWidget {
               children: [
                 CircleAvatar(
                     backgroundImage: NetworkImage(user.photoURL!)),
-                Text(user.displayName!, style: TextStyle(fontWeight: FontWeight.bold),)
+                Text(user.displayName!, style: const TextStyle(fontWeight: FontWeight.bold),)
               ],
             ),
             enabled: false,
@@ -27,7 +27,7 @@ class SignOut extends StatelessWidget {
           PopupMenuItem(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold)), Icon(Icons.logout)],
+              children: const [Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold)), Icon(Icons.logout)],
             ),
             onTap: (){
               final provider =

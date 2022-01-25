@@ -8,7 +8,7 @@ import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class DreamsPage extends StatefulWidget {
-  DreamsPage({Key? key}) : super(key: key);
+  const DreamsPage({Key? key}) : super(key: key);
 
   @override
   _DreamsPageState createState() => _DreamsPageState();
@@ -17,16 +17,16 @@ class DreamsPage extends StatefulWidget {
 class _DreamsPageState extends State<DreamsPage> {
   final user = FirebaseAuth.instance.currentUser!;
 
-  Map _feel = {
-    'terrible': Icon(Icons.sentiment_very_dissatisfied,
+  final Map _feel = {
+    'terrible': const Icon(Icons.sentiment_very_dissatisfied,
         size: 36.0, color: Color(0xffff9595)),
-    'bad': Icon(Icons.sentiment_dissatisfied,
+    'bad': const Icon(Icons.sentiment_dissatisfied,
         size: 36.0, color: Color(0xffffdd99)),
     'average':
-    Icon(Icons.sentiment_neutral, size: 36.0, color: Color(0xffbeffb0)),
+    const Icon(Icons.sentiment_neutral, size: 36.0, color: Color(0xffbeffb0)),
     'okay':
-    Icon(Icons.sentiment_satisfied, size: 36.0, color: Color(0xff9ecdff)),
-    'fantastic': Icon(Icons.sentiment_very_satisfied,
+    const Icon(Icons.sentiment_satisfied, size: 36.0, color: Color(0xff9ecdff)),
+    'fantastic': const Icon(Icons.sentiment_very_satisfied,
         size: 36.0, color: Color(0xffa49eff))
   };
 
@@ -47,7 +47,7 @@ class _DreamsPageState extends State<DreamsPage> {
             .toList(),
       );
     } else {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
   }
 
@@ -56,7 +56,7 @@ class _DreamsPageState extends State<DreamsPage> {
         reference: dreamData.reference);
     return ListTile(
         title: Text(dream.title ?? 'No title',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             maxLines: 1,
             overflow: TextOverflow.ellipsis),
         subtitle: Column(
@@ -71,7 +71,7 @@ class _DreamsPageState extends State<DreamsPage> {
                 DateFormat.yMd()
                     .add_jm()
                     .format(dream.datetime),
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white38,
                     fontWeight: FontWeight.bold,
                     fontSize: 10))
@@ -87,13 +87,13 @@ class _DreamsPageState extends State<DreamsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dreams'),
+        title: const Text('Dreams'),
       ),
       body: _buildDreamsList(context),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddDreamWidget,
         tooltip: 'Add Dream',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

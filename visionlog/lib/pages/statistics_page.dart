@@ -4,7 +4,7 @@ import 'package:visionlog/widgets/numerical_chart.dart';
 import 'package:visionlog/widgets/type_pie_chart.dart';
 
 class StatisticsPage extends StatefulWidget {
-  StatisticsPage({Key? key}) : super(key: key);
+  const StatisticsPage({Key? key}) : super(key: key);
 
   @override
   _StatisticsPageState createState() => _StatisticsPageState();
@@ -23,7 +23,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Statistics'),
+          title: const Text('Statistics'),
           actions: [
             DropdownButtonHideUnderline(
               child: DropdownButton(
@@ -38,7 +38,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
                   });
                 },
-                icon: Icon(Icons.pie_chart),
+                icon: const Icon(Icons.pie_chart),
                 items: <String>[
                   'Feel',
                   'Type',
@@ -51,7 +51,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 }).toList(),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10.0,
             ),
             DropdownButtonHideUnderline(
@@ -66,7 +66,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                     _dateDropdownValue = newValue!;
                   });
                 },
-                icon: Icon(Icons.date_range),
+                icon: const Icon(Icons.date_range),
                 items: <String>[
                   'All-Time',
                   'Yearly',

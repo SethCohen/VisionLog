@@ -10,7 +10,7 @@ import 'package:visionlog/provider/dream_documents_provider.dart';
 
 
 class LoggedIn extends StatefulWidget {
-  LoggedIn({Key? key}) : super(key: key);
+  const LoggedIn({Key? key}) : super(key: key);
 
   @override
   _LoggedInState createState() => _LoggedInState();
@@ -43,9 +43,9 @@ class _LoggedInState extends State<LoggedIn> {
                   index: _selectedIndex,
                 );
               } else if (snapshot.hasError) {
-                return Center(child: Text('Something went wrong!'));
+                return const Center(child: Text('Something went wrong!'));
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             }),
         bottomNavigationBar: BottomNavigationBar(

@@ -5,7 +5,7 @@ import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class TypePieChart extends StatelessWidget {
-  TypePieChart(this.dateSelected);
+  const TypePieChart(this.dateSelected);
 
   final DateTime dateSelected;
 
@@ -31,22 +31,22 @@ class TypePieChart extends StatelessWidget {
       ),
     ];
 
-    return new charts.PieChart<String>(_series,
+    return charts.PieChart<String>(_series,
         animate: true,
         behaviors: [
-          new charts.DatumLegend(
+          charts.DatumLegend(
             position: charts.BehaviorPosition.bottom,
             horizontalFirst: true,
             desiredMaxRows: 2,
             outsideJustification: charts.OutsideJustification.middleDrawArea,
-            cellPadding: new EdgeInsets.only(right: 8.0, bottom: 4.0),
+            cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
           )
         ],
-        defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
-          new charts.ArcLabelDecorator(
-            outsideLabelStyleSpec: charts.TextStyleSpec(
+        defaultRenderer: charts.ArcRendererConfig(arcRendererDecorators: [
+          charts.ArcLabelDecorator(
+            outsideLabelStyleSpec: const charts.TextStyleSpec(
                 color: charts.MaterialPalette.white, fontSize: 15),
-            insideLabelStyleSpec: charts.TextStyleSpec(
+            insideLabelStyleSpec: const charts.TextStyleSpec(
                 color: charts.MaterialPalette.black, fontSize: 15),
           ),
         ]));
@@ -59,7 +59,7 @@ class TypePieChart extends StatelessWidget {
         continuousCount = 0;
 
     if (docs != null) {
-      docs.forEach((Dream dream) {
+      for (var dream in docs) {
         if (dream.isLucid) {
           lucidCount++;
         } else if (dream.isNightmare) {
@@ -69,17 +69,17 @@ class TypePieChart extends StatelessWidget {
         } else if (dream.isContinuous) {
           continuousCount++;
         }
-      });
+      }
 
       return [
         TypeCount("Lucid", lucidCount,
-            charts.ColorUtil.fromDartColor(Color(0xffac95ff))),
+            charts.ColorUtil.fromDartColor(const Color(0xffac95ff))),
         TypeCount("Nightmare", nightmareCount,
-            charts.ColorUtil.fromDartColor(Color(0xffff9595))),
+            charts.ColorUtil.fromDartColor(const Color(0xffff9595))),
         TypeCount("Recurring", recurringCount,
-            charts.ColorUtil.fromDartColor(Color(0xff95c5ff))),
+            charts.ColorUtil.fromDartColor(const Color(0xff95c5ff))),
         TypeCount("Continuous", continuousCount,
-            charts.ColorUtil.fromDartColor(Color(0xff95ffa7))),
+            charts.ColorUtil.fromDartColor(const Color(0xff95ffa7))),
       ];
     }
   }
@@ -92,6 +92,7 @@ class TypeCount {
 
   TypeCount(this.title, this.count, this.color);
 
+  @override
   String toString() {
     return '\nTypeCount{title: $title, count: $count}';
   }

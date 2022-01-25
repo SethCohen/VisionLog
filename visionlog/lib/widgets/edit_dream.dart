@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'dream.dart';
 
 class EditDream extends StatefulWidget {
-  EditDream(this.arguments, {Key? key}) : super(key: key);
+  const EditDream(this.arguments, {Key? key}) : super(key: key);
 
   final Dream arguments;
 
@@ -44,12 +44,12 @@ class _EditDreamState extends State<EditDream> {
   TextEditingController _messageTextEditingController = TextEditingController();
 
 
-  Map _feelColours = {
-    'terrible': Color(0xffff9595),
-    'bad': Color(0xffffdd99),
-    'average': Color(0xffbeffb0),
-    'okay': Color(0xff9ecdff),
-    'fantastic': Color(0xffa49eff)
+  final Map _feelColours = {
+    'terrible': const Color(0xffff9595),
+    'bad': const Color(0xffffdd99),
+    'average': const Color(0xffbeffb0),
+    'okay': const Color(0xff9ecdff),
+    'fantastic': const Color(0xffa49eff)
   };
 
   @override
@@ -137,10 +137,10 @@ class _EditDreamState extends State<EditDream> {
                     OutlinedButton(
                       onPressed: () => _selectDate(context),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: const Color(0xff2C2B30)),
+                        side: const BorderSide(color: Color(0xff2C2B30)),
                         visualDensity: VisualDensity.compact,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(4.0)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0)),
                         primary: Colors.white60,
                       ),
                       child: Text(
@@ -148,16 +148,16 @@ class _EditDreamState extends State<EditDream> {
                         textScaleFactor: 1.25,
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       indent: 8.0,
                     ),
                     OutlinedButton(
                       onPressed: () => _selectTime(context),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: const Color(0xff2C2B30)),
+                        side: const BorderSide(color: Color(0xff2C2B30)),
                         visualDensity: VisualDensity.compact,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(4.0)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0)),
                         primary: Colors.white60,
                       ),
                       child: Text(
@@ -174,18 +174,18 @@ class _EditDreamState extends State<EditDream> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Feel:',
                       textScaleFactor: 1.75,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       indent: 8.0,
                     ),
                     ToggleButtons(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Icon(Icons.sentiment_very_dissatisfied, size: 36.0),
                         Icon(Icons.sentiment_dissatisfied, size: 36.0),
                         Icon(Icons.sentiment_neutral, size: 36.0),
@@ -257,7 +257,7 @@ class _EditDreamState extends State<EditDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Lucid',
                         textScaleFactor: 1.25,
                       ),
@@ -284,7 +284,7 @@ class _EditDreamState extends State<EditDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Nightmare',
                         textScaleFactor: 1.25,
                       ),
@@ -317,7 +317,7 @@ class _EditDreamState extends State<EditDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Recurring',
                         textScaleFactor: 1.25,
                       ),
@@ -344,7 +344,7 @@ class _EditDreamState extends State<EditDream> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Continuous',
                         textScaleFactor: 1.25,
                       ),
@@ -379,17 +379,17 @@ class _EditDreamState extends State<EditDream> {
                   onChanged: (text) {
                     _title = text;
                   },
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(8.0),
                     isDense: true,
                     hintText: 'Title...',
                     hintStyle: TextStyle(color: Colors.white60),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
+                      borderSide: BorderSide(color: Color(0xff2C2B30)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
+                      borderSide: BorderSide(color: Color(0xff2C2B30)),
                     ),
                   ),
                 ),
@@ -405,17 +405,17 @@ class _EditDreamState extends State<EditDream> {
                   },
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(8.0),
                     isDense: true,
                     hintText: 'Tap here to write dream...',
                     hintStyle: TextStyle(color: Colors.white60),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
+                      borderSide: BorderSide(color: Color(0xff2C2B30)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xff2C2B30)),
+                      borderSide: BorderSide(color: Color(0xff2C2B30)),
                     ),
                   ),
                 ),
@@ -429,7 +429,7 @@ class _EditDreamState extends State<EditDream> {
             Navigator.of(context).popUntil((route) => route.isFirst);
           },
           tooltip: 'Save',
-          child: Icon(Icons.save),
+          child: const Icon(Icons.save),
         ),
       ),
     );
@@ -443,11 +443,12 @@ class _EditDreamState extends State<EditDream> {
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
-    if (picked != null && picked != _selectedDate)
+    if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
         _date = DateFormat.yMd().format(_selectedDate);
       });
+    }
   }
 
   _selectTime(BuildContext context) async {
@@ -455,11 +456,12 @@ class _EditDreamState extends State<EditDream> {
       context: context,
       initialTime: _selectedTime,
     );
-    if (picked != null && picked != _selectedTime)
+    if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
 
         _time = _selectedTime.format(context);
       });
+    }
   }
 }

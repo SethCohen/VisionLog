@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class DreamEntree extends StatefulWidget {
-  DreamEntree({Key? key}) : super(key: key);
+  const DreamEntree({Key? key}) : super(key: key);
 
   @override
   _DreamEntreeState createState() => _DreamEntreeState();
@@ -16,15 +16,15 @@ class _DreamEntreeState extends State<DreamEntree> {
     final dream = ModalRoute.of(context)!.settings.arguments as Dream;
 
     Map _feel = {
-      'terrible': Icon(Icons.sentiment_very_dissatisfied,
+      'terrible': const Icon(Icons.sentiment_very_dissatisfied,
           size: 36.0, color: Color(0xffff9595)),
-      'bad': Icon(Icons.sentiment_dissatisfied,
+      'bad': const Icon(Icons.sentiment_dissatisfied,
           size: 36.0, color: Color(0xffffdd99)),
       'average':
-          Icon(Icons.sentiment_neutral, size: 36.0, color: Color(0xffbeffb0)),
+          const Icon(Icons.sentiment_neutral, size: 36.0, color: Color(0xffbeffb0)),
       'okay':
-          Icon(Icons.sentiment_satisfied, size: 36.0, color: Color(0xff9ecdff)),
-      'fantastic': Icon(Icons.sentiment_very_satisfied,
+          const Icon(Icons.sentiment_satisfied, size: 36.0, color: Color(0xff9ecdff)),
+      'fantastic': const Icon(Icons.sentiment_very_satisfied,
           size: 36.0, color: Color(0xffa49eff))
     };
 
@@ -34,9 +34,9 @@ class _DreamEntreeState extends State<DreamEntree> {
         title: Text(dream.title ?? "No title"),
         actions: [
           IconButton(
-              icon: Icon(Icons.create), onPressed: () => _showEditDream(dream)),
+              icon: const Icon(Icons.create), onPressed: () => _showEditDream(dream)),
           IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () {
                 setState(() {
                   dream.reference!.delete();
@@ -56,9 +56,9 @@ class _DreamEntreeState extends State<DreamEntree> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Row(children: [
                   _feel[dream.feel],
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text("Dream felt ${dream.feel}.",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white38,
                         fontWeight: FontWeight.bold,
                       ))
@@ -67,30 +67,30 @@ class _DreamEntreeState extends State<DreamEntree> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(DateFormat.yMd().add_jm().format(dream.datetime),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white38,
                             fontWeight: FontWeight.bold,
                             fontSize: 10)),
                     if (dream.isLucid)
-                      Text("Lucid",
+                      const Text("Lucid",
                           style: TextStyle(
                               color: Colors.white38,
                               fontWeight: FontWeight.bold,
                               fontSize: 10)),
                     if (dream.isNightmare)
-                      Text("Nightmare",
+                      const Text("Nightmare",
                           style: TextStyle(
                               color: Colors.white38,
                               fontWeight: FontWeight.bold,
                               fontSize: 10)),
                     if (dream.isRecurring)
-                      Text("Recurring",
+                      const Text("Recurring",
                           style: TextStyle(
                               color: Colors.white38,
                               fontWeight: FontWeight.bold,
                               fontSize: 10)),
                     if (dream.isContinuous)
-                      Text("Continuous",
+                      const Text("Continuous",
                           style: TextStyle(
                               color: Colors.white38,
                               fontWeight: FontWeight.bold,
@@ -98,9 +98,9 @@ class _DreamEntreeState extends State<DreamEntree> {
                   ],
                 )
               ]),
-              Divider(),
+              const Divider(),
               Text(dream.message ?? "No Message."),
-              Divider(),
+              const Divider(),
             ],
           ),
         ),

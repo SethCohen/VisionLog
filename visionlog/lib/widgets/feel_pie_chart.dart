@@ -5,7 +5,7 @@ import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class FeelPieChart extends StatelessWidget {
-  FeelPieChart(this.dateSelected);
+  const FeelPieChart(this.dateSelected);
 
   final DateTime dateSelected;
 
@@ -31,22 +31,22 @@ class FeelPieChart extends StatelessWidget {
       ),
     ];
 
-    return new charts.PieChart<String>(_series,
+    return charts.PieChart<String>(_series,
         animate: true,
         behaviors: [
-          new charts.DatumLegend(
+          charts.DatumLegend(
             position: charts.BehaviorPosition.bottom,
             horizontalFirst: true,
             desiredMaxRows: 2,
             outsideJustification: charts.OutsideJustification.middleDrawArea,
-            cellPadding: new EdgeInsets.only(right: 8.0, bottom: 4.0),
+            cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
           )
         ],
-        defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
-          new charts.ArcLabelDecorator(
-            outsideLabelStyleSpec: charts.TextStyleSpec(
+        defaultRenderer: charts.ArcRendererConfig(arcRendererDecorators: [
+          charts.ArcLabelDecorator(
+            outsideLabelStyleSpec: const charts.TextStyleSpec(
                 color: charts.MaterialPalette.white, fontSize: 15),
-            insideLabelStyleSpec: charts.TextStyleSpec(
+            insideLabelStyleSpec: const charts.TextStyleSpec(
                 color: charts.MaterialPalette.black, fontSize: 15),
           ),
         ]));
@@ -60,7 +60,7 @@ class FeelPieChart extends StatelessWidget {
         fantasticCount = 0;
 
     if (docs != null) {
-      docs.forEach((Dream dream) {
+      for (var dream in docs) {
         switch (dream.feel) {
           case 'terrible':
             {
@@ -93,19 +93,19 @@ class FeelPieChart extends StatelessWidget {
             }
             break;
         }
-      });
+      }
 
       return [
         FeelCount("Terrible", terribleCount,
-            charts.ColorUtil.fromDartColor(Color(0xffff9595))),
+            charts.ColorUtil.fromDartColor(const Color(0xffff9595))),
         FeelCount(
-            "Bad", badCount, charts.ColorUtil.fromDartColor(Color(0xffffdd99))),
+            "Bad", badCount, charts.ColorUtil.fromDartColor(const Color(0xffffdd99))),
         FeelCount("Average", averageCount,
-            charts.ColorUtil.fromDartColor(Color(0xffbeffb0))),
+            charts.ColorUtil.fromDartColor(const Color(0xffbeffb0))),
         FeelCount("Okay", okayCount,
-            charts.ColorUtil.fromDartColor(Color(0xff9ecdff))),
+            charts.ColorUtil.fromDartColor(const Color(0xff9ecdff))),
         FeelCount("Fantastic", fantasticCount,
-            charts.ColorUtil.fromDartColor(Color(0xffa49eff))),
+            charts.ColorUtil.fromDartColor(const Color(0xffa49eff))),
       ];
     }
   }
@@ -118,6 +118,7 @@ class FeelCount {
 
   FeelCount(this.title, this.count, this.color);
 
+  @override
   String toString() {
     return '\nFeelCount{title: $title, count: $count}';
   }

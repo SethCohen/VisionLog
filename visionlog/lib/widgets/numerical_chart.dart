@@ -6,7 +6,7 @@ import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'dream.dart';
 
 class NumericalChart extends StatelessWidget {
-  NumericalChart(this.dateSelected, {Key? key}) : super(key: key);
+  const NumericalChart(this.dateSelected, {Key? key}) : super(key: key);
   final DateTime dateSelected;
 
   @override
@@ -38,7 +38,7 @@ class NumericalChart extends StatelessWidget {
         untaggedCount = 0;
 
     if (docs != null) {
-      docs.forEach((Dream dream) {
+      for (var dream in docs) {
         switch (dream.feel) {
           case 'terrible':
             {
@@ -82,112 +82,112 @@ class NumericalChart extends StatelessWidget {
         } else {
           untaggedCount++;
         }
-      });
+      }
 
       return [
         RichText(
           text: TextSpan(
             text: 'Total Amount of Dreams: ',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
             children: <TextSpan>[
               TextSpan(
                   text: '${docs.length}',
-                  style: TextStyle(fontWeight: FontWeight.normal)),
+                  style: const TextStyle(fontWeight: FontWeight.normal)),
             ],
           ),
         ),
-        Divider(),
+        const Divider(),
         RichText(
             text: TextSpan(
                 text: 'Dream Feel Count Distribution:\n',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
                 children: <TextSpan>[
               TextSpan(
                   text: '\t\t\tTerrible: ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
                         text: '$terribleCount\n',
-                        style: TextStyle(fontWeight: FontWeight.normal))
+                        style: const TextStyle(fontWeight: FontWeight.normal))
                   ]),
               TextSpan(
                   text: '\t\t\tBad: ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
                         text: '$badCount\n',
-                        style: TextStyle(fontWeight: FontWeight.normal))
+                        style: const TextStyle(fontWeight: FontWeight.normal))
                   ]),
               TextSpan(
                   text: '\t\t\tAverage: ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
                         text: '$averageCount\n',
-                        style: TextStyle(fontWeight: FontWeight.normal))
+                        style: const TextStyle(fontWeight: FontWeight.normal))
                   ]),
               TextSpan(
                   text: '\t\t\tOkay: ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
                         text: '$okayCount\n',
-                        style: TextStyle(fontWeight: FontWeight.normal))
+                        style: const TextStyle(fontWeight: FontWeight.normal))
                   ]),
               TextSpan(
                   text: '\t\t\tFantastic: ',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
                         text: '$fantasticCount',
-                        style: TextStyle(fontWeight: FontWeight.normal))
+                        style: const TextStyle(fontWeight: FontWeight.normal))
                   ])
             ])),
-        Divider(),
+        const Divider(),
         RichText(
             text: TextSpan(
                 text: 'Dream Type Count Distribution:\n',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
                 children: <TextSpan>[
                   TextSpan(
                       text: '\t\t\tLucid: ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(
                             text: '$lucidCount\n',
-                            style: TextStyle(fontWeight: FontWeight.normal))
+                            style: const TextStyle(fontWeight: FontWeight.normal))
                       ]),
                   TextSpan(
                       text: '\t\t\tNightmare: ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(
                             text: '$nightmareCount\n',
-                            style: TextStyle(fontWeight: FontWeight.normal))
+                            style: const TextStyle(fontWeight: FontWeight.normal))
                       ]),
                   TextSpan(
                       text: '\t\t\tRecurring: ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(
                             text: '$recurringCount\n',
-                            style: TextStyle(fontWeight: FontWeight.normal))
+                            style: const TextStyle(fontWeight: FontWeight.normal))
                       ]),
                   TextSpan(
                       text: '\t\t\tContinuous: ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(
                             text: '$continuousCount\n',
-                            style: TextStyle(fontWeight: FontWeight.normal))
+                            style: const TextStyle(fontWeight: FontWeight.normal))
                       ]),
                   TextSpan(
                       text: '\t\t\tUntagged: ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(
                             text: '$untaggedCount',
-                            style: TextStyle(fontWeight: FontWeight.normal))
+                            style: const TextStyle(fontWeight: FontWeight.normal))
                       ])
                 ]))
       ];

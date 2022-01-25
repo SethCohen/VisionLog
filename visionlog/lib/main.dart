@@ -6,6 +6,7 @@ import 'package:visionlog/provider/google_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:visionlog/widgets/dream.dart';
 import 'package:visionlog/widgets/edit_dream.dart';
+import 'package:visionlog/pages/support_page.dart';
 
 import 'widgets/add_dream.dart';
 import 'widgets/dream_entree.dart';
@@ -20,7 +21,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'MainPage';
+  static const String title = 'MainPage';
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
@@ -32,19 +33,19 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.deepPurple,
           scaffoldBackgroundColor: const Color(0xFF000000),
           disabledColor: Colors.white70,
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             subtitle1: TextStyle(color: Colors.white70),
             caption: TextStyle(color: Colors.white70),
             bodyText2: TextStyle(color: Colors.white70),
             headline4: TextStyle(color: Colors.white70),
           ),
-          cardTheme: CardTheme(
-            color: const Color(0xFF121219),
+          cardTheme: const CardTheme(
+            color: Color(0xFF121219),
             shadowColor: Colors.white38,
             elevation: 3,
           ),
-          popupMenuTheme: PopupMenuThemeData(
-              color: const Color(0xFF15151C),
+          popupMenuTheme: const PopupMenuThemeData(
+              color: Color(0xFF15151C),
               textStyle: TextStyle(color: Colors.white70)),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/addDream': (BuildContext context) => AddDream(),
           '/dreamEntree': (BuildContext context) => DreamEntree(),
+          '/productsScreen': (BuildContext context) => SupportPage(),
         },
         onGenerateRoute: (RouteSettings settings) {
           print('build route for ${settings.name}');

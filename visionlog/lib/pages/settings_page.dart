@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csv/csv.dart';
-import 'package:ext_storage/ext_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,9 +11,10 @@ import 'package:visionlog/provider/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 import 'package:visionlog/widgets/sign_out.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:external_path/external_path.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -49,7 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
         actions: [SignOut()],
       ),
       body: Padding(
@@ -59,112 +59,112 @@ class _SettingsPageState extends State<SettingsPage> {
           child: ListView(
             controller: _controllerOne,
             children: [
-              Text('General',
+              const Text('General',
                   textScaleFactor: 1.05,
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: () {
                     _exportDatabase(context);
                   },
-                  child: Text(
+                  child: const Text(
                     'Export database',
                     style: TextStyle(color: Colors.white70),
                   )),
-              TextButton(
+              const TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish theme editor
                   child: Text(
                     'Appearance (WIP)',
                     style: TextStyle(color: Colors.white38),
                   )),
-              TextButton(
+              const TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish account manager
                   child: Text(
                     'Manage Account (WIP)',
                     style: TextStyle(color: Colors.white38),
                   )),
-              Text('About',
+              const Text('About',
                   textScaleFactor: 1.05,
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchPrivacyPolicyURL,
-                  child: Text(
+                  child: const Text(
                     'Privacy Policy',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchGithubURL,
-                  child: Text(
+                  child: const Text(
                     'Source Code',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchReviewURL,
-                  child: Text(
+                  child: const Text(
                     'Rate This App',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: () => _showRecentChangesAlert(),
-                  child: Text(
+                  child: const Text(
                     'Recent Changes',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null,
                   child: Text(
                     'Version: ${_packageInfo.version}',
-                    style: TextStyle(color: Colors.white70),
+                    style: const TextStyle(color: Colors.white70),
                   )),
-              Text('Report Issues',
+              const Text('Report Issues',
                   textScaleFactor: 1.05,
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchReportIssueGithubURL,
-                  child: Text(
+                  child: const Text(
                     'Report An Issue Via Github',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchSendEmail,
-                  child: Text(
+                  child: const Text(
                     'Report An Issue Via Email',
                     style: TextStyle(color: Colors.white70),
                   )),
-              Text('Other',
+              const Text('Other',
                   textScaleFactor: 1.05,
                   style: TextStyle(
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
-                  onPressed: null, // TODO finish IAP
-                  child: Text(
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
+                  onPressed: () => _showProducts(context), // TODO finish IAP
+                  child: const Text(
                     'Support Me',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: _launchPersonalSiteURL,
-                  child: Text(
+                  child: const Text(
                     'Visit My Website',
                     style: TextStyle(color: Colors.white70),
                   )),
               TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: () => _showAboutMeAlert(), //
-                  child: Text(
+                  child: const Text(
                     'About Me',
                     style: TextStyle(color: Colors.white70),
                   )),
@@ -188,12 +188,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: RichText(
                       textScaleFactor: 1.15,
                       text: TextSpan(
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                           text: "What's new in v${_packageInfo.version}\n",
-                          children: [
+                          children: const [
                             TextSpan(
                                 style: TextStyle(
                                     fontSize: 14,
@@ -209,7 +209,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: () => Navigator.pop(context, 'OK'),
                   child:
                       const Text('OK', style: TextStyle(color: Colors.white)),
-                  style: ButtonStyle(splashFactory: NoSplash.splashFactory),
+                  style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
                 ),
               ],
             ));
@@ -227,7 +227,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: SingleChildScrollView(
                   child: RichText(
                       textScaleFactor: 1.15,
-                      text: TextSpan(
+                      text: const TextSpan(
                           style: TextStyle(color: Colors.white),
                           text:
                               "I'm a freelancer and hobbyist who's passionate towards creating various apps, software, digital art, and graphic designs. I created this app for my own personal use to help me lucid dream better and just because I thought it'd be nice to record my dreams.\n\nAlong the way I thought it'd be nice to share my app with others, so here we are. I'll always try to focus on efficiency and simplicity so hopefully this app never becomes slow. Nor will there ever be ads.\n\nIf you'd like to see more of my work or contact me for work - as I am a freelancer - you can check out my personal website from the ",
@@ -283,7 +283,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: () => Navigator.pop(context, 'OK'),
                   child:
                       const Text('OK', style: TextStyle(color: Colors.white)),
-                  style: ButtonStyle(splashFactory: NoSplash.splashFactory),
+                  style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
                 ),
               ],
             ));
@@ -362,7 +362,7 @@ class _SettingsPageState extends State<SettingsPage> {
     row.add('is_recurring');
     row.add('is_continuous');
     rows.add(row);
-    dreams.forEach((dream) {
+    for (var dream in dreams) {
       List<dynamic> row = [];
       row.add(dream.title);
       row.add(dream.message);
@@ -373,13 +373,12 @@ class _SettingsPageState extends State<SettingsPage> {
       row.add(dream.isRecurring);
       row.add(dream.isContinuous);
       rows.add(row);
-    });
+    }
 
     String csv = const ListToCsvConverter().convert(rows);
 
-    String? dir = await ExtStorage.getExternalStoragePublicDirectory(
-        ExtStorage.DIRECTORY_DOWNLOADS);
-    String file = "$dir";
+    String? dir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    String file = dir;
 
     File f = File("$file/VisionLog-${DateFormat.yMd().format(DateTime.now()).replaceAll('/', '-')}.csv");
     // print('Saved to $f');
@@ -393,4 +392,8 @@ class _SettingsPageState extends State<SettingsPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
   }
+}
+
+_showProducts(BuildContext context) {
+  Navigator.pushNamed(context, '/productsScreen');
 }
