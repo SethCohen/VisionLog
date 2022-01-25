@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/addDream': (BuildContext context) => AddDream(),
           '/dreamEntree': (BuildContext context) => DreamEntree(),
-          '/productsScreen': (BuildContext context) => SupportPage(),
+          '/supportMe': (BuildContext context) => SupportPage(),
         },
         onGenerateRoute: (RouteSettings settings) {
           print('build route for ${settings.name}');

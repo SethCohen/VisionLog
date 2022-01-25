@@ -395,5 +395,5 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 _showProducts(BuildContext context) {
-  Navigator.pushNamed(context, '/productsScreen');
+  Navigator.pushNamed(context, '/supportMe');
 }
