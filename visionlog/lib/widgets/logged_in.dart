@@ -7,7 +7,6 @@ import 'package:visionlog/pages/settings_page.dart';
 import 'package:visionlog/pages/statistics_page.dart';
 import 'package:visionlog/providers/dream_documents_provider.dart';
 
-
 class LoggedIn extends StatefulWidget {
   const LoggedIn({Key? key}) : super(key: key);
 
@@ -20,12 +19,23 @@ class _LoggedInState extends State<LoggedIn> {
 
   int _selectedIndex = 0;
 
+  static const List<Widget> _widgetPages = <Widget>[
+    DreamsPage(),
+    StatisticsPage(),
+    SettingsPage(),
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection("dreams").where('user_uid', isEqualTo: user.uid).orderBy('timestamp', descending: true).snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("dreams")
+                .where('user_uid', isEqualTo: user.uid)
+                .orderBy('timestamp', descending: true)
+                .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -33,14 +43,7 @@ class _LoggedInState extends State<LoggedIn> {
                 });
                 // TODO import any old dreams from old api
 
-                return IndexedStack(
-                  children: const [
-                    DreamsPage(),
-                    StatisticsPage(),
-                    SettingsPage(),
-                  ],
-                  index: _selectedIndex,
-                );
+                return _widgetPages.elementAt(_selectedIndex);
               } else if (snapshot.hasError) {
                 return const Center(child: Text('Something went wrong!'));
               } else {
