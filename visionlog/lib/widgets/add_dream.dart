@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -39,8 +38,10 @@ class _AddDreamState extends State<AddDream> {
   //  Initializes which Feel ToggleButton is selected by default.
   List<bool> feelSelected = [false, false, true, false, false];
 
-  final TextEditingController _titleTextEditingController = TextEditingController();
-  final TextEditingController _messageTextEditingController = TextEditingController();
+  final TextEditingController _titleTextEditingController =
+      TextEditingController();
+  final TextEditingController _messageTextEditingController =
+      TextEditingController();
 
   final Map _feelColours = {
     'terrible': const Color(0xffff9595),
@@ -71,8 +72,8 @@ class _AddDreamState extends State<AddDream> {
           'is_recurring': _recurring,
           'is_continuous': _continuous
         })
-        .then((value) => print("Dream Added"))
-        .catchError((error) => print("Failed to add dream: $error"));
+        .then((value) => debugPrint("Dream Added"))
+        .catchError((error) => debugPrint("Failed to add dream: $error"));
   }
 
   @override

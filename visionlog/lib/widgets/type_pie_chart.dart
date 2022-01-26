@@ -1,11 +1,11 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:visionlog/providers/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class TypePieChart extends StatelessWidget {
-  const TypePieChart(this.dateSelected);
+  const TypePieChart(this.dateSelected, {Key? key}) : super(key: key);
 
   final DateTime dateSelected;
 

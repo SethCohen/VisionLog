@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -55,7 +54,7 @@ class _EditDreamState extends State<EditDream> {
   @override
   void initState() {
     super.initState();
-    print(widget.arguments);
+    debugPrint(widget.arguments.toString());
 
     _selectedDate = widget.arguments.datetime;
     _selectedTime = TimeOfDay.fromDateTime(widget.arguments.datetime);
@@ -107,8 +106,8 @@ class _EditDreamState extends State<EditDream> {
           'is_recurring': _recurring,
           'is_continuous': _continuous
         })
-        .then((value) => print("Dream Edited"))
-        .catchError((error) => print("Failed to edit dream: $error"));
+        .then((value) => debugPrint("Dream Edited"))
+        .catchError((error) => debugPrint("Failed to edit dream: $error"));
   }
 
   @override

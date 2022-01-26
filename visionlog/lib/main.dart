@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:visionlog/pages/home_page.dart';
@@ -17,11 +18,13 @@ Future<void> main() async {
 
   runApp(MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => Documents())],
-      child: MyApp()));
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   static const String title = 'MainPage';
+
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
@@ -49,14 +52,14 @@ class MyApp extends StatelessWidget {
               textStyle: TextStyle(color: Colors.white70)),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomePage(),
+        home: const HomePage(),
         routes: <String, WidgetBuilder>{
-          '/addDream': (BuildContext context) => AddDream(),
-          '/dreamEntree': (BuildContext context) => DreamEntree(),
-          '/supportMe': (BuildContext context) => SupportPage(),
+          '/addDream': (BuildContext context) => const AddDream(),
+          '/dreamEntree': (BuildContext context) => const DreamEntree(),
+          '/supportMe': (BuildContext context) => const SupportPage(),
         },
         onGenerateRoute: (RouteSettings settings) {
-          print('build route for ${settings.name}');
+          debugPrint('build route for ${settings.name}');
           var routes = <String, WidgetBuilder>{
             "/editDream": (ctx) => EditDream(settings.arguments as Dream),
           };

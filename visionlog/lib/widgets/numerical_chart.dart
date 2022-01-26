@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:visionlog/providers/dream_documents_provider.dart';
 
 import 'dream.dart';
@@ -19,10 +18,8 @@ class NumericalChart extends StatelessWidget {
         .where((dream) => dream.datetime.isAfter(dateSelected))
         .toList();
 
-    return Container(
-      child: ListView(
-          padding: const EdgeInsets.all(16.0), children: _buildData(docs)),
-    );
+    return ListView(
+        padding: const EdgeInsets.all(16.0), children: _buildData(docs));
   }
 
   _buildData(List<Dream>? docs) {

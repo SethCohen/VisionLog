@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:visionlog/pages/dreams_page.dart';
@@ -35,7 +34,7 @@ class _LoggedInState extends State<LoggedIn> {
                 // TODO import any old dreams from old api
 
                 return IndexedStack(
-                  children: [
+                  children: const [
                     DreamsPage(),
                     StatisticsPage(),
                     SettingsPage(),

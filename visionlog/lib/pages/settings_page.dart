@@ -5,7 +5,7 @@ import 'package:csv/csv.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visionlog/providers/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
@@ -381,7 +381,7 @@ class _SettingsPageState extends State<SettingsPage> {
     String file = dir;
 
     File f = File("$file/VisionLog-${DateFormat.yMd().format(DateTime.now()).replaceAll('/', '-')}.csv");
-    // print('Saved to $f');
+    debugPrint('Saved to $f');
 
     f.writeAsString(csv);
 

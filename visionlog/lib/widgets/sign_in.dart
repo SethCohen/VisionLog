@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:visionlog/providers/google_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SignIn extends StatelessWidget {
+  const SignIn({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.all(32),
