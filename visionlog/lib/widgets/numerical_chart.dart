@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:visionlog/provider/dream_documents_provider.dart';
+import 'package:visionlog/providers/dream_documents_provider.dart';
 
 import 'dream.dart';
 

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:visionlog/provider/google_provider.dart';
+import 'package:visionlog/providers/google_provider.dart';
 
 class SignOut extends StatelessWidget {
   SignOut({Key? key}) : super(key: key);

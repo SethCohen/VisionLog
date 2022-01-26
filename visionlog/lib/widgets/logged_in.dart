@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:visionlog/pages/dreams_page.dart';
 import 'package:visionlog/pages/settings_page.dart';
 import 'package:visionlog/pages/statistics_page.dart';
-import 'package:visionlog/provider/dream_documents_provider.dart';
+import 'package:visionlog/providers/dream_documents_provider.dart';
 
 
 class LoggedIn extends StatefulWidget {

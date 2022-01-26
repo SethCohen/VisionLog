@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/src/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:visionlog/provider/dream_documents_provider.dart';
+import 'package:visionlog/providers/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 import 'package:visionlog/widgets/sign_out.dart';
 import 'package:package_info_plus/package_info_plus.dart';

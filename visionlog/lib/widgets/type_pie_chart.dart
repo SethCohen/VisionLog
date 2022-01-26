@@ -1,7 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:visionlog/provider/dream_documents_provider.dart';
+import 'package:visionlog/providers/dream_documents_provider.dart';
 import 'package:visionlog/widgets/dream.dart';
 
 class TypePieChart extends StatelessWidget {

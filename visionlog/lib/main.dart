@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:visionlog/pages/home_page.dart';
-import 'package:visionlog/provider/dream_documents_provider.dart';
-import 'package:visionlog/provider/google_provider.dart';
+import 'package:visionlog/providers/dream_documents_provider.dart';
+import 'package:visionlog/providers/google_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:visionlog/widgets/dream.dart';
 import 'package:visionlog/widgets/edit_dream.dart';
