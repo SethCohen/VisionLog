@@ -181,70 +181,68 @@ class _SupportPageState extends State<SupportPage> {
     if (!_isAvailable) {
       return const Card();
     }
-    List<dynamic> productList = <dynamic>[];
+    List<dynamic> _buildProducts = <dynamic>[];
 
     // Display error if products ids are not found
     if (_notFoundIds.isNotEmpty) {
-      productList.add(Card(
+      _buildProducts.add(Card(
         child: ListTile(
             title: Text('Can\'t find products: [${_notFoundIds.join(", ")}]',
                 style: TextStyle(color: ThemeData.dark().errorColor)),
             subtitle: const Text('Error: Contact sethcohen.dev@gmail.com')),
       ));
     }
+    _sortProducts();
+    _buildProducts.add(Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: _products.map(
+          (ProductDetails productDetails) {
+            return TextButton.icon(
+              icon: _productStyling[productDetails.id]['icon'],
+              label: Text(
+                  '${productDetails.title.substring(0, productDetails.title.indexOf('(Vision Log'))}\n${productDetails.price}'),
+              style: TextButton.styleFrom(
+                backgroundColor: _productStyling[productDetails.id]['colour'],
+                primary: Colors.white,
+              ),
+              onPressed: () {
+                late PurchaseParam purchaseParam;
 
-    Map<String, PurchaseDetails> purchases =
-        Map.fromEntries(_purchases.map((PurchaseDetails purchase) {
-      if (purchase.pendingCompletePurchase) {
-        _inAppPurchase.completePurchase(purchase);
-      }
-      return MapEntry<String, PurchaseDetails>(purchase.productID, purchase);
-    }));
+                if (Platform.isAndroid) {
+                  purchaseParam = GooglePlayPurchaseParam(
+                      productDetails: productDetails,
+                      applicationUserName: null,
+                      changeSubscriptionParam: null);
+                } else {
+                  purchaseParam = PurchaseParam(
+                    productDetails: productDetails,
+                    applicationUserName: null,
+                  );
+                }
 
-    _products.sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
+                _inAppPurchase.buyConsumable(
+                    purchaseParam: purchaseParam, autoConsume: _kAutoConsume);
+              },
+            );
+          },
+        ).toList()));
 
-    productList.addAll([
+    return Column(children: <Widget>[
       const Divider(
         height: 8,
       ),
-      Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: _products.map(
-            (ProductDetails productDetails) {
-
-              return TextButton.icon(
-                icon: _productStyling[productDetails.id]['icon'],
-                label: Text(
-                    '${productDetails.title.substring(0, productDetails.title.indexOf('(Vision Log'))}\n${productDetails.price}'),
-                style: TextButton.styleFrom(
-                  backgroundColor: _productStyling[productDetails.id]['colour'],
-                  primary: Colors.white,
-                ),
-                onPressed: () {
-                  late PurchaseParam purchaseParam;
-
-                  if (Platform.isAndroid) {
-                    purchaseParam = GooglePlayPurchaseParam(
-                        productDetails: productDetails,
-                        applicationUserName: null,
-                        changeSubscriptionParam: null);
-                  } else {
-                    purchaseParam = PurchaseParam(
-                      productDetails: productDetails,
-                      applicationUserName: null,
-                    );
-                  }
-
-                  _inAppPurchase.buyConsumable(
-                      purchaseParam: purchaseParam, autoConsume: _kAutoConsume);
-                },
-              );
-            },
-          ).toList())
+      const Text(
+        'Thank you for your purchase!',
+        textScaleFactor: 1.5,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      const Text('I really do appreciate it. 🙂'),
+      const Divider(
+        height: 16,
+      ),
+      ..._buildProducts
     ]);
-
-    return Column(children: <Widget>[...productList]);
   }
 
   Future<void> consume(String id) async {
@@ -287,7 +285,9 @@ class _SupportPageState extends State<SupportPage> {
     return Future<bool>.value(true);
   }
 
-  void _handleInvalidPurchase(PurchaseDetails purchaseDetails) {}
+  void _handleInvalidPurchase(PurchaseDetails purchaseDetails) {
+    debugPrint('Purchase failed');
+  }
 
   Future<void> _listenToPurchaseUpdated(
       List<PurchaseDetails> purchaseDetailsList) async {
@@ -305,15 +305,6 @@ class _SupportPageState extends State<SupportPage> {
           } else {
             _handleInvalidPurchase(purchaseDetails);
             return;
-          }
-        }
-
-        if (Platform.isAndroid) {
-          if (!_kAutoConsume && purchaseDetails.productID == _teaDonationId) {
-            final InAppPurchaseAndroidPlatformAddition androidAddition =
-                _inAppPurchase.getPlatformAddition<
-                    InAppPurchaseAndroidPlatformAddition>();
-            await androidAddition.consumePurchase(purchaseDetails);
           }
         }
 
@@ -346,5 +337,9 @@ class _SupportPageState extends State<SupportPage> {
         ));
       }
     }
+  }
+
+  void _sortProducts() {
+    _products.sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
   }
 }

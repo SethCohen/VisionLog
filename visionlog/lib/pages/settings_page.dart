@@ -74,13 +74,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   )),
               const TextButton(
                   style: ButtonStyle(alignment: Alignment.centerLeft),
-                  onPressed: null, // TODO finish theme editor
-                  child: Text(
-                    'Appearance (WIP)',
-                    style: TextStyle(color: Colors.white38),
-                  )),
-              const TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
                   onPressed: null, // TODO finish account manager
                   child: Text(
                     'Manage Account (WIP)',
