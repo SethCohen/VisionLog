@@ -72,12 +72,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     'Export database',
                     style: TextStyle(color: Colors.white70),
                   )),
-              const TextButton(
-                  style: ButtonStyle(alignment: Alignment.centerLeft),
-                  onPressed: null, // TODO finish account manager
-                  child: Text(
-                    'Manage Account (WIP)',
-                    style: TextStyle(color: Colors.white38),
+              TextButton(
+                  style: const ButtonStyle(alignment: Alignment.centerLeft),
+                  onPressed: () => _showManageAccountPage(context),
+                  child: const Text(
+                    'Manage Account',
+                    style: TextStyle(color: Colors.white70),
                   )),
               const Text('About',
                   textScaleFactor: 1.05,
@@ -142,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.deepPurple, fontWeight: FontWeight.bold)),
               TextButton(
                   style: const ButtonStyle(alignment: Alignment.centerLeft),
-                  onPressed: () => _showProducts(context), // TODO finish IAP
+                  onPressed: () => _showSupportPage(),
                   child: const Text(
                     'Support Me',
                     style: TextStyle(color: Colors.white70),
@@ -383,10 +383,13 @@ class _SettingsPageState extends State<SettingsPage> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
   }
-}
 
-_showProducts(BuildContext context) {
-  Navigator.pushNamed(context, '/supportMe');
+  _showSupportPage() {
+    Navigator.pushNamed(context, '/supportMe');
+  }
+
+  _showManageAccountPage(context) {
+    Navigator.pushNamed(context, '/manageAccount');
+  }
 }

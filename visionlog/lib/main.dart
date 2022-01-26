@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:visionlog/pages/home_page.dart';
+import 'package:visionlog/pages/manage_page.dart';
 import 'package:visionlog/providers/dream_documents_provider.dart';
 import 'package:visionlog/providers/google_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
           '/addDream': (BuildContext context) => const AddDream(),
           '/dreamEntree': (BuildContext context) => const DreamEntree(),
           '/supportMe': (BuildContext context) => const SupportPage(),
+          '/manageAccount': (BuildContext context) => const ManagePage(),
         },
         onGenerateRoute: (RouteSettings settings) {
           debugPrint('build route for ${settings.name}');
