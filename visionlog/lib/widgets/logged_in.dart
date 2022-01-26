@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:visionlog/pages/dreams_page.dart';
 import 'package:visionlog/pages/settings_page.dart';
 import 'package:visionlog/pages/statistics_page.dart';
 import 'package:visionlog/providers/dream_documents_provider.dart';
+import 'package:path_provider/path_provider.dart';
 
 class LoggedIn extends StatefulWidget {
   const LoggedIn({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class LoggedIn extends StatefulWidget {
 }
 
 class _LoggedInState extends State<LoggedIn> {
+  CollectionReference dreams = FirebaseFirestore.instance.collection('dreams');
   final user = FirebaseAuth.instance.currentUser!;
 
   int _selectedIndex = 0;
@@ -25,6 +29,142 @@ class _LoggedInState extends State<LoggedIn> {
     SettingsPage(),
   ];
 
+  _importOldDreams() async {
+    final Directory? directory = await getApplicationSupportDirectory();
+
+    List files = directory!.listSync();
+    RegExp exp = RegExp(
+        r"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2});(?<hour>\d{2}):(?<minute>\d{2}):\d{2}-(?<type>\d)\.txt");
+
+    // 1 is regular
+    // 2 is lucid
+    // 3 is euphoric
+    // 4 is thriller
+    // 5 is nightmare
+    // 6 is lucid nightmare
+
+    for (File file in files) {
+      final strFile = file.path.split('/').last;
+      if (exp.hasMatch(strFile)) {
+        final match = exp.firstMatch(strFile);
+        final contents = await file.readAsString();
+
+        switch (match!.namedGroup("type")) {
+          case "1":
+            addDream(
+                strFile,
+                match.namedGroup("year"),
+                match.namedGroup("month"),
+                match.namedGroup("day"),
+                match.namedGroup("hour"),
+                match.namedGroup("minute"),
+                'average',
+                contents,
+                false,
+                false);
+            break;
+          case "2":
+            addDream(
+                strFile,
+                match.namedGroup("year"),
+                match.namedGroup("month"),
+                match.namedGroup("day"),
+                match.namedGroup("hour"),
+                match.namedGroup("minute"),
+                'average',
+                contents,
+                false,
+                true);
+            break;
+          case "3":
+            addDream(
+                strFile,
+                match.namedGroup("year"),
+                match.namedGroup("month"),
+                match.namedGroup("day"),
+                match.namedGroup("hour"),
+                match.namedGroup("minute"),
+                'fantastic',
+                contents,
+                false,
+                false);
+            break;
+          case "4":
+            addDream(
+                strFile,
+                match.namedGroup("year"),
+                match.namedGroup("month"),
+                match.namedGroup("day"),
+                match.namedGroup("hour"),
+                match.namedGroup("minute"),
+                'bad',
+                contents,
+                false,
+                false);
+            break;
+          case "5":
+            addDream(
+                strFile,
+                match.namedGroup("year"),
+                match.namedGroup("month"),
+                match.namedGroup("day"),
+                match.namedGroup("hour"),
+                match.namedGroup("minute"),
+                'terrible',
+                contents,
+                true,
+                false);
+            break;
+          case "6":
+            addDream(
+                strFile,
+                match.namedGroup("year"),
+                match.namedGroup("month"),
+                match.namedGroup("day"),
+                match.namedGroup("hour"),
+                match.namedGroup("minute"),
+                'terrible',
+                contents,
+                true,
+                true);
+            break;
+          default:
+            addDream(
+                strFile,
+                match.namedGroup("year"),
+                match.namedGroup("month"),
+                match.namedGroup("day"),
+                match.namedGroup("hour"),
+                match.namedGroup("minute"),
+                'average',
+                contents,
+                false,
+                false);
+        }
+
+        file.delete();
+      }
+    }
+  }
+
+  Future<void> addDream(
+      title, year, month, day, hour, minute, feel, message, nightmare, lucid) {
+    return dreams
+        .add({
+          'user_uid': user.uid,
+          'timestamp': DateTime(int.parse(year), int.parse(month),
+              int.parse(day), int.parse(hour), int.parse(minute)),
+          'feel': feel,
+          'title': title,
+          'message': message,
+          'is_lucid': lucid,
+          'is_nightmare': nightmare,
+          'is_recurring': false,
+          'is_continuous': false
+        })
+        .then((value) => debugPrint("Dream Added"))
+        .catchError((error) => debugPrint("Failed to add dream: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +181,8 @@ class _LoggedInState extends State<LoggedIn> {
                 WidgetsBinding.instance?.addPostFrameCallback((_) {
                   context.read<Documents>().setDocuments(snapshot.data!.docs);
                 });
-                // TODO import any old dreams from old api
+
+                _importOldDreams();
 
                 return _widgetPages.elementAt(_selectedIndex);
               } else if (snapshot.hasError) {
