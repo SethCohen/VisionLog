@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Something went wrong!'));
             } else {
-              return SignIn();
+              return const SignIn();
             }
           }));
 }
