@@ -12,6 +12,11 @@ import 'package:visionlog/pages/support_page.dart';
 import 'widgets/add_dream.dart';
 import 'widgets/dream_entree.dart';
 
+// TODO fix chart wrapping (legend gets cut off on some phones)
+// TODO update packages and symbols
+// TODO optimize code
+// TODO comment stuff
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
