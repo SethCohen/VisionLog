@@ -193,6 +193,19 @@ class _SettingsPageState extends State<SettingsPage> {
                                     color: Colors.white,
                                     fontWeight: FontWeight.normal),
                                 text:
+                                    '\nSmall optimizations.\n- Fixed charts cutting off.\n- Reduced app filesize.'),
+                            TextSpan(
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                text: 'What\'s new in v2.0.0'),
+                            TextSpan(
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal),
+                                text:
                                     "\nComplete app rewrite from plain old Java to the Flutter framework. This update hopes to bring a more efficient and cleaner design to the app.\n- Revamped entire overall appearance of the app.\n- Added more dream types (e.g. continuous dream for sequel dreams, recurring dreams that repeat, etc)\n- Added being able to record the feel of a dream (e.g. terrible, fantastic, etc)\n- Added different kinds of graphs (Feel pie chart, Type pie chart, and a Numerical counts chart)\n- Added more date ranges for charts.\n- Added dream titles\n- App now relies entirely on a cloud database for cloud functionality (Powered by Google Firebase). No matter what phone, you should be able to access your dream journal from your gmail account. Also supports offline functionality.\n- Added account management\n- Added old dream recovery from old app version (Accessible from Dream Page)"),
                           ])),
                 ),
@@ -202,7 +215,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: () => Navigator.pop(context, 'OK'),
                   child:
                       const Text('OK', style: TextStyle(color: Colors.white)),
-                  style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
+                  style:
+                      const ButtonStyle(splashFactory: NoSplash.splashFactory),
                 ),
               ],
             ));
@@ -276,7 +290,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: () => Navigator.pop(context, 'OK'),
                   child:
                       const Text('OK', style: TextStyle(color: Colors.white)),
-                  style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
+                  style:
+                      const ButtonStyle(splashFactory: NoSplash.splashFactory),
                 ),
               ],
             ));
@@ -330,7 +345,8 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   _launchPrivacyPolicyURL() async {
-    const url = 'https://sethdev.ca/portfolio/programming/visionlog/privacy-policy/';
+    const url =
+        'https://sethdev.ca/portfolio/programming/visionlog/privacy-policy/';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -340,9 +356,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   _exportDatabase(BuildContext context) async {
     var docs = Provider.of<Documents>(context, listen: false).documents;
-    var dreams = docs!.map((DocumentSnapshot document) => Dream.fromMap(
-        document.data() as Map<String, dynamic>,
-        reference: document.reference)).toList();
+    var dreams = docs!
+        .map((DocumentSnapshot document) => Dream.fromMap(
+            document.data() as Map<String, dynamic>,
+            reference: document.reference))
+        .toList();
 
     List<List<dynamic>> rows = [];
     List<dynamic> row = [];
@@ -370,10 +388,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
     String csv = const ListToCsvConverter().convert(rows);
 
-    String? dir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    String? dir = await ExternalPath.getExternalStoragePublicDirectory(
+        ExternalPath.DIRECTORY_DOWNLOADS);
     String file = dir;
 
-    File f = File("$file/VisionLog-${DateFormat.yMd().format(DateTime.now()).replaceAll('/', '-')}.csv");
+    File f = File(
+        "$file/VisionLog-${DateFormat.yMd().format(DateTime.now()).replaceAll('/', '-')}.csv");
     debugPrint('Saved to $f');
 
     f.writeAsString(csv);
