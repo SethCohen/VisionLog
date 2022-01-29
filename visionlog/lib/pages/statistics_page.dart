@@ -90,10 +90,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             children: [
-              SizedBox(
-                height: 300.0,
-                child: _buildChart(_chartDropdownValue, _dateDropdownValue),
-              )
+              Flexible(
+                  child: _buildChart(_chartDropdownValue, _dateDropdownValue)),
+              Flexible(child: Container())
             ],
           ),
         ));
