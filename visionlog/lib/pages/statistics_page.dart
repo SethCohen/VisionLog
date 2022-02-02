@@ -51,6 +51,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
               ),
             ),
             const VerticalDivider(
+              color: Colors.transparent,
               width: 8.0,
             ),
             DropdownButtonHideUnderline(
@@ -82,6 +83,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
               ),
             ),
             const VerticalDivider(
+              color: Colors.transparent,
               width: 4.0,
             ),
           ],
@@ -90,9 +92,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             children: [
-              Flexible(
+              Expanded(
                   child: _buildChart(_chartDropdownValue, _dateDropdownValue)),
-              Flexible(child: Container())
+              const Spacer()
             ],
           ),
         ));
