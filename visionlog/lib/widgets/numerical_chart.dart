@@ -18,8 +18,10 @@ class NumericalChart extends StatelessWidget {
         .where((dream) => dream.datetime.isAfter(dateSelected))
         .toList();
 
-    return ListView(
-        padding: const EdgeInsets.all(16.0), children: _buildData(docs));
+    return docs.isEmpty
+        ? const Center(child: Text("No Dreams Founds"))
+        : ListView(
+            padding: const EdgeInsets.all(16.0), children: _buildData(docs));
   }
 
   _buildData(List<Dream>? docs) {

@@ -31,18 +31,21 @@ class TypePieChart extends StatelessWidget {
       ),
     ];
 
-    return charts.PieChart<String>(_series,
-        animate: true,
-        behaviors: [
-          charts.DatumLegend(
-            position: charts.BehaviorPosition.bottom,
-            horizontalFirst: true,
-            desiredMaxRows: 2,
-            outsideJustification: charts.OutsideJustification.middleDrawArea,
-            cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
-          )
-        ],
-        defaultRenderer: charts.ArcRendererConfig(arcRendererDecorators: [
+    return docs.isEmpty
+        ? const Center(child: Text("No Dreams Founds"))
+        : charts.PieChart<String>(_series,
+            animate: true,
+            behaviors: [
+              charts.DatumLegend(
+                position: charts.BehaviorPosition.bottom,
+                horizontalFirst: true,
+                desiredMaxRows: 2,
+                outsideJustification:
+                    charts.OutsideJustification.middleDrawArea,
+                cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
+              )
+            ],
+            defaultRenderer: charts.ArcRendererConfig(arcRendererDecorators: [
           charts.ArcLabelDecorator(
             outsideLabelStyleSpec: const charts.TextStyleSpec(
                 color: charts.MaterialPalette.white, fontSize: 15),

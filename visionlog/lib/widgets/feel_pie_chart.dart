@@ -31,25 +31,28 @@ class FeelPieChart extends StatelessWidget {
       ),
     ];
 
-    return charts.PieChart<String>(_series,
-        animate: true,
-        behaviors: [
-          charts.DatumLegend(
-            position: charts.BehaviorPosition.bottom,
-            horizontalFirst: true,
-            desiredMaxRows: 2,
-            outsideJustification: charts.OutsideJustification.middleDrawArea,
-            cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
-          )
-        ],
-        defaultRenderer: charts.ArcRendererConfig(arcRendererDecorators: [
-          charts.ArcLabelDecorator(
-            outsideLabelStyleSpec: const charts.TextStyleSpec(
-                color: charts.MaterialPalette.white, fontSize: 15),
-            insideLabelStyleSpec: const charts.TextStyleSpec(
-                color: charts.MaterialPalette.black, fontSize: 15),
-          ),
-        ]));
+    return docs.isEmpty
+        ? const Center(child: Text("No Dreams Founds"))
+        : charts.PieChart<String>(_series,
+            animate: true,
+            behaviors: [
+              charts.DatumLegend(
+                position: charts.BehaviorPosition.bottom,
+                horizontalFirst: true,
+                desiredMaxRows: 2,
+                outsideJustification:
+                    charts.OutsideJustification.middleDrawArea,
+                cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
+              )
+            ],
+            defaultRenderer: charts.ArcRendererConfig(arcRendererDecorators: [
+              charts.ArcLabelDecorator(
+                outsideLabelStyleSpec: const charts.TextStyleSpec(
+                    color: charts.MaterialPalette.white, fontSize: 15),
+                insideLabelStyleSpec: const charts.TextStyleSpec(
+                    color: charts.MaterialPalette.black, fontSize: 15),
+              ),
+            ]));
   }
 
   _buildData(List<Dream>? docs) {
@@ -98,8 +101,8 @@ class FeelPieChart extends StatelessWidget {
       return [
         FeelCount("Terrible", terribleCount,
             charts.ColorUtil.fromDartColor(const Color(0xffff9595))),
-        FeelCount(
-            "Bad", badCount, charts.ColorUtil.fromDartColor(const Color(0xffffdd99))),
+        FeelCount("Bad", badCount,
+            charts.ColorUtil.fromDartColor(const Color(0xffffdd99))),
         FeelCount("Average", averageCount,
             charts.ColorUtil.fromDartColor(const Color(0xffbeffb0))),
         FeelCount("Okay", okayCount,
