@@ -31,28 +31,26 @@ class TypePieChart extends StatelessWidget {
       ),
     ];
 
-    return docs.isEmpty
-        ? const Center(child: Text("No Dreams Founds"))
+    return _buildData(docs).isEmpty
+        ? const Center(child: Text("No Data Found"))
         : charts.PieChart<String>(_series,
             animate: true,
             behaviors: [
               charts.DatumLegend(
                 position: charts.BehaviorPosition.bottom,
                 horizontalFirst: true,
-                desiredMaxRows: 2,
-                outsideJustification:
-                    charts.OutsideJustification.middleDrawArea,
+                outsideJustification: charts.OutsideJustification.middle,
                 cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
               )
             ],
             defaultRenderer: charts.ArcRendererConfig(arcRendererDecorators: [
-          charts.ArcLabelDecorator(
-            outsideLabelStyleSpec: const charts.TextStyleSpec(
-                color: charts.MaterialPalette.white, fontSize: 15),
-            insideLabelStyleSpec: const charts.TextStyleSpec(
-                color: charts.MaterialPalette.black, fontSize: 15),
-          ),
-        ]));
+              charts.ArcLabelDecorator(
+                outsideLabelStyleSpec: const charts.TextStyleSpec(
+                    color: charts.MaterialPalette.white, fontSize: 15),
+                insideLabelStyleSpec: const charts.TextStyleSpec(
+                    color: charts.MaterialPalette.black, fontSize: 15),
+              ),
+            ]));
   }
 
   _buildData(List<Dream>? docs) {
@@ -74,16 +72,20 @@ class TypePieChart extends StatelessWidget {
         }
       }
 
-      return [
-        TypeCount("Lucid", lucidCount,
-            charts.ColorUtil.fromDartColor(const Color(0xffac95ff))),
-        TypeCount("Nightmare", nightmareCount,
-            charts.ColorUtil.fromDartColor(const Color(0xffff9595))),
-        TypeCount("Recurring", recurringCount,
-            charts.ColorUtil.fromDartColor(const Color(0xff95c5ff))),
-        TypeCount("Continuous", continuousCount,
-            charts.ColorUtil.fromDartColor(const Color(0xff95ffa7))),
-      ];
+      if (lucidCount + nightmareCount + recurringCount + continuousCount == 0) {
+        return <TypeCount>[];
+      } else {
+        return [
+          TypeCount("Lucid", lucidCount,
+              charts.ColorUtil.fromDartColor(const Color(0xffac95ff))),
+          TypeCount("Nightmare", nightmareCount,
+              charts.ColorUtil.fromDartColor(const Color(0xffff9595))),
+          TypeCount("Recurring", recurringCount,
+              charts.ColorUtil.fromDartColor(const Color(0xff95c5ff))),
+          TypeCount("Continuous", continuousCount,
+              charts.ColorUtil.fromDartColor(const Color(0xff95ffa7))),
+        ];
+      }
     }
   }
 }

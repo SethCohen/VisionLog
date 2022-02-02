@@ -19,7 +19,7 @@ class NumericalChart extends StatelessWidget {
         .toList();
 
     return docs.isEmpty
-        ? const Center(child: Text("No Dreams Founds"))
+        ? const Center(child: Text("No Data Found"))
         : ListView(
             padding: const EdgeInsets.all(16.0), children: _buildData(docs));
   }

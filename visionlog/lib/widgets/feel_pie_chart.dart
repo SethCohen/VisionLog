@@ -32,16 +32,14 @@ class FeelPieChart extends StatelessWidget {
     ];
 
     return docs.isEmpty
-        ? const Center(child: Text("No Dreams Founds"))
+        ? const Center(child: Text("No Data Found"))
         : charts.PieChart<String>(_series,
             animate: true,
             behaviors: [
               charts.DatumLegend(
                 position: charts.BehaviorPosition.bottom,
                 horizontalFirst: true,
-                desiredMaxRows: 2,
-                outsideJustification:
-                    charts.OutsideJustification.middleDrawArea,
+                outsideJustification: charts.OutsideJustification.middle,
                 cellPadding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
               )
             ],

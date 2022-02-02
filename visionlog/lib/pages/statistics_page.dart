@@ -92,7 +92,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             children: [
-              Expanded(
+              Flexible(
+                  flex: 2,
                   child: _buildChart(_chartDropdownValue, _dateDropdownValue)),
               const Spacer()
             ],
