@@ -185,7 +185,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
-                          text: "What's new in v${_packageInfo.version}\n",
+                          text: "What's new in v${_packageInfo.version}",
                           children: const [
                             TextSpan(
                                 style: TextStyle(
@@ -193,20 +193,37 @@ class _SettingsPageState extends State<SettingsPage> {
                                     color: Colors.white,
                                     fontWeight: FontWeight.normal),
                                 text:
-                                    '\nSmall optimizations.\n- Fixed charts cutting off.\n- Reduced app filesize.'),
+                                    "\n\n- Added null data checks for charts.\n- Changed chart sizes.\n- Fixed chart legends cutting off.\n- Changed VerticalDividers in Statistics appbar to be transparent."),
                             TextSpan(
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
-                                text: 'What\'s new in v2.0.0'),
+                                text: '\n\nWhat\'s new in v2.0.1',
+                                children: [
+                                  TextSpan(
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal),
+                                      text:
+                                          "\n\nSmall optimizations.\n- Fixed charts cutting off.\n- Reduced app filesize.")
+                                ]),
                             TextSpan(
                                 style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 18,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.normal),
-                                text:
-                                    "\nComplete app rewrite from plain old Java to the Flutter framework. This update hopes to bring a more efficient and cleaner design to the app.\n- Revamped entire overall appearance of the app.\n- Added more dream types (e.g. continuous dream for sequel dreams, recurring dreams that repeat, etc)\n- Added being able to record the feel of a dream (e.g. terrible, fantastic, etc)\n- Added different kinds of graphs (Feel pie chart, Type pie chart, and a Numerical counts chart)\n- Added more date ranges for charts.\n- Added dream titles\n- App now relies entirely on a cloud database for cloud functionality (Powered by Google Firebase). No matter what phone, you should be able to access your dream journal from your gmail account. Also supports offline functionality.\n- Added account management\n- Added old dream recovery from old app version (Accessible from Dream Page)"),
+                                    fontWeight: FontWeight.bold),
+                                text: '\n\nWhat\'s new in v2.0.0',
+                                children: [
+                                  TextSpan(
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal),
+                                      text:
+                                          "\n\nComplete app rewrite from plain old Java to the Flutter framework. This update hopes to bring a more efficient and cleaner design to the app.\n- Revamped entire overall appearance of the app.\n- Added more dream types (e.g. continuous dream for sequel dreams, recurring dreams that repeat, etc)\n- Added being able to record the feel of a dream (e.g. terrible, fantastic, etc)\n- Added different kinds of graphs (Feel pie chart, Type pie chart, and a Numerical counts chart)\n- Added more date ranges for charts.\n- Added dream titles\n- App now relies entirely on a cloud database for cloud functionality (Powered by Google Firebase). No matter what phone, you should be able to access your dream journal from your gmail account. Also supports offline functionality.\n- Added account management\n- Added old dream recovery from old app version (Accessible from Dream Page)")
+                                ]),
                           ])),
                 ),
               ),
